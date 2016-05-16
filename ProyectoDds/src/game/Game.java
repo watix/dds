@@ -1,5 +1,6 @@
 package game;
 
+import game.graphics.Screen;
 import game.input.Keyboard;
 
 import java.awt.Canvas;

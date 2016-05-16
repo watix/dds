@@ -1,4 +1,7 @@
-package Game;
+package game;
+
+import game.input.Keyboard;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,11 +18,11 @@ public class Game extends Canvas implements Runnable {
 	public static int height = width / 16 * 9;
 	public static int scale = 3;
 	public static String title = "AWesoME";
-	
 
 	private Thread thread;
 	private boolean running = false;
 	private JFrame frame;
+	private Keyboard key;
 
 	private Screen screen;
 
@@ -29,8 +32,12 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
-		frame = new JFrame();
+
 		screen = new Screen(width, height);
+		frame = new JFrame();
+		key = new Keyboard();
+
+		addKeyListener(key);
 	}
 
 	public synchronized void start() {
@@ -71,7 +78,7 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				frame.setTitle(title+ "  |  "+ updates + " ups, " + frames + " fps");
+				frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps");
 				updates = 0;
 				frames = 0;
 			}
@@ -79,10 +86,19 @@ public class Game extends Canvas implements Runnable {
 		}
 		stop();
 	}
-	int x=0 , y = 0;
+
+	int x = 0, y = 0;
+
 	public void update() {
-		x++;
-		//y++;
+		key.update();
+		if (key.right)
+			x++;
+		if (key.left)
+			x--;
+		if (key.down)
+			y++;
+		if (key.up)
+			y--;
 	}
 
 	public void render() {
@@ -92,7 +108,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		screen.render(x , y);
+		screen.render(x, y);
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
@@ -104,8 +120,6 @@ public class Game extends Canvas implements Runnable {
 		g.dispose();
 		bs.show();
 	}
-
-
 
 	public static void main(String[] args) {
 

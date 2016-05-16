@@ -1,4 +1,5 @@
-package Game;
+package game;
+
 import java.util.Random;
 
 public class Screen {

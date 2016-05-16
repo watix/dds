@@ -1,3 +1,4 @@
+package Game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -78,6 +79,11 @@ public class Game extends Canvas implements Runnable {
 		}
 		stop();
 	}
+	int x=0 , y = 0;
+	public void update() {
+		x++;
+		//y++;
+	}
 
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
@@ -86,7 +92,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		screen.render();
+		screen.render(x , y);
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
@@ -99,9 +105,7 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 	}
 
-	public void update() {
 
-	}
 
 	public static void main(String[] args) {
 

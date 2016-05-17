@@ -1,5 +1,6 @@
 package game;
 
+import game.entity.mob.Player;
 import game.graphics.Screen;
 import game.input.Keyboard;
 import game.level.Level;
@@ -8,6 +9,7 @@ import game.level.RandomLevel;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -26,6 +28,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private JFrame frame;
 	private Keyboard key;
+	private Player player;
 	
 	private Level level;
 	
@@ -42,6 +45,7 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = new RandomLevel(64, 64);
+		player = new Player(key);
 
 		addKeyListener(key);
 	}
@@ -97,14 +101,7 @@ public class Game extends Canvas implements Runnable {
 
 	public void update() {
 		key.update();
-		if (key.right)
-			x++;
-		if (key.left)
-			x--;
-		if (key.down)
-			y++;
-		if (key.up)
-			y--;
+		player.update();
 	}
 
 	public void render() {
@@ -114,7 +111,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		level.render(x, y, screen);
+		level.render(player.x, player.y, screen);
 		
 
 		for (int i = 0; i < pixels.length; i++) {
@@ -122,9 +119,10 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.BLUE); // new color(40 , 0, 2);
-		g.fillRect(0, 0, getWidth(), getHeight());
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Verdana", 0, 50));
+		g.drawString("X: "+player.x+"Y: "+player.y , 400,400);
 		g.dispose();
 		bs.show();
 	}

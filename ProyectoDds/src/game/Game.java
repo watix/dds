@@ -5,6 +5,7 @@ import game.graphics.Screen;
 import game.input.Keyboard;
 import game.level.Level;
 import game.level.RandomLevel;
+import game.level.SpawnLevel;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -44,8 +45,8 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new RandomLevel(64, 64);
-		player = new Player(key);
+		level = new SpawnLevel("/textures/levels/map1.png");
+		player = new Player(8*16,8*16,key);
 
 		addKeyListener(key);
 	}
@@ -124,7 +125,7 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Verdana", 0, 50));
-		g.drawString("X: "+player.x+"Y: "+player.y , 400,400);
+//		g.drawString("X: "+player.x+"Y: "+player.y , 400,400);
 		g.dispose();
 		bs.show();
 	}

@@ -8,6 +8,8 @@ public class Sprite {
 	private SpriteSheet sheet;
 
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
+	public static Sprite flower = new Sprite(16, 1, 0, SpriteSheet.tiles);
+	public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 	
 //	public static Sprite player0 = new Sprite(16, 0 , 10, SpriteSheet.tiles);
@@ -20,7 +22,14 @@ public class Sprite {
 	//public static Sprite player_left = new Sprite(32, 3, 5, SpriteSheet.tiles);
 	public static Sprite player_right = new Sprite(32, 1, 5, SpriteSheet.tiles);
 	
-	public static Sprite player_mov_f1 = new Sprite(32, 1, 5, SpriteSheet.tiles);
+	public static Sprite player_mov_f1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
+	public static Sprite player_mov_f2 = new Sprite(32, 0, 7, SpriteSheet.tiles);
+	public static Sprite player_mov_r1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
+	public static Sprite player_mov_r2 = new Sprite(32, 1, 7, SpriteSheet.tiles);
+	public static Sprite player_mov_b1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
+	public static Sprite player_mov_b2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
+
+
 
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {

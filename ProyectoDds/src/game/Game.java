@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable {
 		key = new Keyboard();
 		level = new SpawnLevel("/textures/levels/map1.png");
 		player = new Player(8*16,8*16,key);
-
+		player.init(level);
 		addKeyListener(key);
 	}
 

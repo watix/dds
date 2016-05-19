@@ -8,6 +8,7 @@ public class Level {
 	protected int width, height;
 	protected int[] tilesInt;
 	protected int[] tiles;
+	public int spawnX = 0,spawnY= 0;
 
 	public Level(int width, int height) {
 		this.height = height;
@@ -53,9 +54,13 @@ public class Level {
 
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
-		if (tiles[x + y * width] == 0xFFF0F0F0) return Tile.rock;
-		if (tiles[x + y * width] == 0xFFFFFF00) return Tile.flower;
-		if (tiles[x + y * width] == 0xFF00FF00) return Tile.grass;
+		if (tiles[x + y * width] == Tile.col_rock) return Tile.rock;
+		if (tiles[x + y * width] == Tile.col_flower) return Tile.flower;
+		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
+		if (tiles[x + y * width] == Tile.spawn){ 
+			this.spawnX= x;
+			this.spawnY =y;
+			return Tile.voidTile;}
 		return Tile.grass;
 	}
 }

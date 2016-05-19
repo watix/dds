@@ -47,12 +47,7 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
-		/*
-		 * int xx = x - 16; int yy = y - 16; screen.renderPlayer(xx, yy,
-		 * Sprite.player0); screen.renderPlayer(xx + 16, yy, Sprite.player1);
-		 * screen.renderPlayer(xx, yy + 16, Sprite.player2);
-		 * screen.renderPlayer(xx + 16, yy + 16, Sprite.player3);
-		 */
+		
 		int dir = this.dir;
 		int flip = 0;
 		switch (dir) {
@@ -81,10 +76,7 @@ public class Player extends Mob {
 				else sprite = Sprite.player_mov_b2;
 			}
 			break;
-//		case 3:
-//			sprite = Sprite.player_right;
-//			flip = 1;
-//			break;
+
 		default:
 			sprite = Sprite.player_fordward;
 			break;

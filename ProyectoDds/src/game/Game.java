@@ -2,6 +2,7 @@ package game;
 
 import game.entity.mob.Player;
 import game.graphics.Screen;
+import game.graphics.Sprite;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.level.Level;
@@ -15,12 +16,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;
 	private static int scale = 3;
@@ -56,14 +58,14 @@ public class Game extends Canvas implements Runnable {
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 	}
-	
-	public static int getWindowWidth(){
+
+	public static int getWindowWidth() {
 		return width * scale;
 	}
-	public static int getWindowHeight(){
+
+	public static int getWindowHeight() {
 		return height * scale;
 	}
-	
 
 	public synchronized void start() {
 		thread = new Thread(this, "Display");
@@ -131,7 +133,7 @@ public class Game extends Canvas implements Runnable {
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-
+		
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}

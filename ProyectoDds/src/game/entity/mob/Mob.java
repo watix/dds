@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.entity.Entity;
+import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
 import game.graphics.Sprite;
@@ -15,9 +16,6 @@ public abstract class Mob extends Entity {
 	protected boolean moving = false;
 	protected boolean walking=false;
 	
-	protected List<Projectile> projectiles = new ArrayList<Projectile>();
-	
-
 	public void move(int xa, int ya) {
 		if(xa!=0 && ya!=0){
 			move(xa,0);
@@ -41,7 +39,6 @@ public abstract class Mob extends Entity {
 	
 	protected void shoot(int x, int y, double dir){
 		Projectile p = new WizzardProjectile(x, y, dir);
-		projectiles.add(p);
 		level.add(p);
 		
 	}

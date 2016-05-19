@@ -1,5 +1,7 @@
 package game.entity.projectile;
 
+import java.util.Random;
+
 import game.entity.Entity;
 import game.graphics.Sprite;
 
@@ -11,17 +13,20 @@ public abstract class Projectile extends Entity {
 	protected double nx, ny;
 	protected double x, y;
 	protected double instance;
-	protected double speed, rateOfFire, range, damage;
+	protected double speed, range, damage;
 
-	public Projectile(int x, int y ,double dir) {
+	protected final Random random = new Random();
+
+	public Projectile(int x, int y, double dir) {
 		xOrigin = x;
 		yOrigin = y;
 		angle = dir;
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 	}
-	protected void move(){
-		
+
+	protected void move() {
+
 	}
 
 }

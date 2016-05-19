@@ -2,6 +2,7 @@ package game.entity.mob;
 
 import game.Game;
 import game.entity.projectile.Projectile;
+import game.entity.projectile.WizzardProjectile;
 import game.graphics.Screen;
 import game.graphics.Sprite;
 import game.input.Keyboard;
@@ -13,6 +14,8 @@ public class Player extends Mob {
 	private int animated = 0;
 	private boolean walking;
 
+	private double fireRate = 0;
+
 	public Player(Keyboard input) {
 
 		this.input = input;
@@ -23,10 +26,13 @@ public class Player extends Mob {
 		this.x = x;
 		this.y = y;
 		this.input = input;
-
+		sprite= Sprite.player_fordward;
+		fireRate = WizzardProjectile.FIRE_RATE;
+		
 	}
 
 	public void update() {
+		if (fireRate > 0) fireRate--;
 		int xa = 0, ya = 0;
 		if (animated < 60)
 			animated++;
@@ -45,23 +51,25 @@ public class Player extends Mob {
 		}
 		clear();
 		updateShooting();
-		System.out.println(projectiles.size());
 	}
 
 	private void clear() {
-		for (int i = 0; i < projectiles.size(); i++) {
-			Projectile p = projectiles.get(i);
-			if (p.isRemoved()){projectiles.remove(i);}
+		for (int i = 0; i < level.getProjectiles().size(); i++) {
+			Projectile p = level.getProjectiles().get(i);
+			if (p.isRemoved()) {
+				level.getProjectiles().remove(i);
+			}
 		}
 	}
 
 	private void updateShooting() {
-		if (Mouse.getB() == 1) {
+		if (Mouse.getB() == 1 && fireRate <= 0) {
 			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
 
 			shoot(x, y, dir);
+			fireRate = WizzardProjectile.FIRE_RATE;
 		}
 	}
 

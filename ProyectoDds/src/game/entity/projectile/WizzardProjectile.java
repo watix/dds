@@ -1,16 +1,18 @@
 package game.entity.projectile;
 
+import game.entity.particle.Particle;
 import game.graphics.Screen;
 import game.graphics.Sprite;
 
 public class WizzardProjectile extends Projectile {
 
+	public static final double FIRE_RATE = 15;
+
 	public WizzardProjectile(int x, int y, double dir) {
 		super(x, y, dir);
-		range = 300;
-		speed = 4;
+		range = random.nextInt(100) + 50;
+		speed = 2;
 		damage = 20;
-		rateOfFire = 15;
 		sprite = Sprite.projectile;
 
 		nx = speed * Math.cos(angle);
@@ -18,6 +20,11 @@ public class WizzardProjectile extends Projectile {
 	}
 
 	public void update() {
+		if (level.tileCollition(x, y, nx, ny, 7)) {
+			Particle p = new Particle((int)x, (int)y, 500);
+			level.add(p);
+			remove();
+		}
 		move();
 
 	}
@@ -25,8 +32,7 @@ public class WizzardProjectile extends Projectile {
 	protected void move() {
 		x += nx;
 		y += ny;
-		calculateDistance();
-		
+
 		if (range < calculateDistance()) remove();
 	}
 

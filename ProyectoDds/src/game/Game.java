@@ -3,8 +3,8 @@ package game;
 import game.entity.mob.Player;
 import game.graphics.Screen;
 import game.input.Keyboard;
+import game.input.Mouse;
 import game.level.Level;
-import game.level.RandomLevel;
 import game.level.SpawnLevel;
 
 import java.awt.Canvas;
@@ -20,9 +20,10 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
-	public static int width = 300;
-	public static int height = width / 16 * 9;
-	public static int scale = 3;
+	
+	private static int width = 300;
+	private static int height = 168; // width / 16 * 9;
+	private static int scale = 3;
 	public static String title = "AWesoME";
 
 	private Thread thread;
@@ -30,9 +31,9 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private Keyboard key;
 	private Player player;
-	
+
 	private Level level;
-	
+
 	private Screen screen;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -46,10 +47,23 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = new SpawnLevel("/textures/levels/map1.png");
-		player = new Player(8*16,8*16,key);
+		player = new Player(8 * 16, 8 * 16, key);
 		player.init(level);
+
 		addKeyListener(key);
+
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
+	
+	public static int getWindowWidth(){
+		return width * scale;
+	}
+	public static int getWindowHeight(){
+		return height * scale;
+	}
+	
 
 	public synchronized void start() {
 		thread = new Thread(this, "Display");
@@ -103,6 +117,7 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		key.update();
 		player.update();
+		level.update();
 	}
 
 	public void render() {
@@ -112,8 +127,8 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		int xScroll=player.x - screen.width /2;
-		int yScroll=player.y - screen.height /2;
+		int xScroll = player.x - screen.width / 2;
+		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
 
@@ -125,7 +140,6 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Verdana", 0, 50));
-//		g.drawString("X: "+player.x+"Y: "+player.y , 400,400);
 		g.dispose();
 		bs.show();
 	}

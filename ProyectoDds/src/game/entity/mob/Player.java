@@ -1,8 +1,10 @@
 package game.entity.mob;
 
+import game.Game;
 import game.graphics.Screen;
 import game.graphics.Sprite;
 import game.input.Keyboard;
+import game.input.Mouse;
 
 public class Player extends Mob {
 	private Keyboard input;
@@ -29,51 +31,63 @@ public class Player extends Mob {
 			animated++;
 		else
 			animated = 0;
-		if (input.up)
-			ya--;
-		if (input.down)
-			ya++;
-		if (input.left)
-			xa--;
-		if (input.right)
-			xa++;
-
+		if (input.up) ya--;
+		if (input.down) ya++;
+		if (input.left) xa--;
+		if (input.right) xa++;
+		
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
 		} else {
 			walking = false;
 		}
+		
+		updateShooting();
+	}
+
+	private void updateShooting() {
+		if (Mouse.getB() == 1) {
+			double dx= Mouse.getX() - Game.getWindowWidth()/2;
+			double dy= Mouse.getY() - Game.getWindowHeight()/2;
+			double dir = Math.atan2(dy, dx);
+
+			shoot(x,y,dir);
+		}		
 	}
 
 	public void render(Screen screen) {
-		
+
 		int dir = this.dir;
 		int flip = 0;
 		switch (dir) {
 		case 0:
 			sprite = Sprite.player_fordward;
 			if (walking) {
-				if(animated<30){
-				sprite = Sprite.player_mov_f1;}
-				else sprite = Sprite.player_mov_f2;
+				if (animated < 30) {
+					sprite = Sprite.player_mov_f1;
+				} else
+					sprite = Sprite.player_mov_f2;
 			}
 			break;
-		case 1: case 3:
+		case 1:
+		case 3:
 			sprite = Sprite.player_right;
-			if(dir == 3) flip = 1;
+			if (dir == 3) flip = 1;
 			if (walking) {
-				if(animated<30){
-				sprite = Sprite.player_mov_r1;}
-				else sprite = Sprite.player_mov_r2;
+				if (animated < 30) {
+					sprite = Sprite.player_mov_r1;
+				} else
+					sprite = Sprite.player_mov_r2;
 			}
 			break;
 		case 2:
 			sprite = Sprite.player_backward;
 			if (walking) {
-				if(animated<30){
-				sprite = Sprite.player_mov_b1;}
-				else sprite = Sprite.player_mov_b2;
+				if (animated < 30) {
+					sprite = Sprite.player_mov_b1;
+				} else
+					sprite = Sprite.player_mov_b2;
 			}
 			break;
 

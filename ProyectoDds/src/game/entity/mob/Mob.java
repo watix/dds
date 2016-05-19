@@ -28,9 +28,7 @@ public abstract class Mob extends Entity {
 		if(xa<0) dir = 3;//left
 		if(ya>0) dir = 2;//down
 		if(ya<0) dir = 0;//up
-
-		
-		
+	
 		if(!collition(xa, ya)){
 		x += xa;
 		y += ya;
@@ -38,11 +36,10 @@ public abstract class Mob extends Entity {
 	}
 
 	public void update() {
-
+		
 	}
 	
 	protected void shoot(int x, int y, double dir){
-		//dir *= 180/Math.PI;
 		Projectile p = new WizzardProjectile(x, y, dir);
 		projectiles.add(p);
 		level.add(p);

@@ -45,6 +45,8 @@ public class Screen {
 				if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height)
 					break;
 				if  (xa < 0) xa = 0;
+				int color = sprite.pixels[x + y * sprite.SIZE];
+				if(color != 0xFFFF00FF)
 				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}

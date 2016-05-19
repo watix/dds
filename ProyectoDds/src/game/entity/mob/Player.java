@@ -1,6 +1,7 @@
 package game.entity.mob;
 
 import game.Game;
+import game.entity.projectile.Projectile;
 import game.graphics.Screen;
 import game.graphics.Sprite;
 import game.input.Keyboard;
@@ -35,25 +36,33 @@ public class Player extends Mob {
 		if (input.down) ya++;
 		if (input.left) xa--;
 		if (input.right) xa++;
-		
+
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
 		} else {
 			walking = false;
 		}
-		
+		clear();
 		updateShooting();
+		System.out.println(projectiles.size());
+	}
+
+	private void clear() {
+		for (int i = 0; i < projectiles.size(); i++) {
+			Projectile p = projectiles.get(i);
+			if (p.isRemoved()){projectiles.remove(i);}
+		}
 	}
 
 	private void updateShooting() {
 		if (Mouse.getB() == 1) {
-			double dx= Mouse.getX() - Game.getWindowWidth()/2;
-			double dy= Mouse.getY() - Game.getWindowHeight()/2;
+			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
+			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
 
-			shoot(x,y,dir);
-		}		
+			shoot(x, y, dir);
+		}
 	}
 
 	public void render(Screen screen) {

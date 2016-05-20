@@ -26,7 +26,7 @@ public class Sprite {
 	public static Sprite player_mov_b1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
 	public static Sprite player_mov_b2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
 	
-	public static Sprite particle_normal = new Sprite(3, 0xFFAAAAAA);
+	public static Sprite particle_normal = new Sprite(3, 0xFFAA00AA);
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 

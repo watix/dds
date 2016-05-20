@@ -1,6 +1,6 @@
-package game.entity;
+package game.entity.spawner;
 
-import game.entity.particle.Particle;
+import game.entity.Entity;
 import game.level.Level;
 
 public class Spawner extends Entity {
@@ -17,13 +17,5 @@ public class Spawner extends Entity {
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		for (int i = 0; i < amount; i++) {
-			if(type == Type.PARTICLE){
-				level.add(new Particle(x, y, 50));
-			}
-			if(type == Type.MOB){
-				
-			}
-		}
 	}
 }

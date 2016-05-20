@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.entity.Entity;
-import game.entity.Spawner;
 import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
+import game.entity.spawner.Spawner;
 import game.graphics.Screen;
 import game.level.tile.Tile;
 
@@ -21,7 +21,6 @@ public class Level {
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public List<Particle> particles = new ArrayList<Particle>();
 
-
 	public Level(int width, int height) {
 		this.height = height;
 		this.width = width;
@@ -32,8 +31,6 @@ public class Level {
 	public Level(String path) {
 		loadLevel(path);
 		generateLevel();
-		
-		add(new Spawner(16*16, 62*16, Spawner.Type.PARTICLE, 500, this));
 	}
 
 	protected void generateLevel() {
@@ -59,6 +56,19 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).update();
 		}
+		remove();
+	}
+
+	private void remove() {
+		for (int i = 0; i < entities.size(); i++) {
+			if (entities.get(i).isRemoved()) entities.remove(i);
+		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			if (projectiles.get(i).isRemoved()) projectiles.remove(i);
+		}
+		for (int i = 0; i < particles.size(); i++) {
+			if (particles.get(i).isRemoved()) particles.remove(i);
+		}
 	}
 
 	public List<Projectile> getProjectiles() {
@@ -69,12 +79,12 @@ public class Level {
 
 	}
 
-	public boolean tileCollition(double x, double y, double xa, double ya, int size) {
+	public boolean tileCollition(int x, int y, int size) {
 		boolean solid = false;
 		for (int c = 0; c < 4; c++) {
-			int xt = (((int)x + (int)xa) + c % 2 * size/10-5)/16;
-			int yt = (((int)y +(int) ya) + c / 2 * size/6+7)/16;
-			if (getTile((int)xt,(int)yt).solid()) solid = true;
+			int xt = (x + c % 2 * size / 10 - 5) / 16;
+			int yt = (y + c / 2 * size / 6 + 7) / 16;
+			if (getTile(xt, yt).solid()) solid = true;
 		}
 		return solid;
 	}
@@ -104,19 +114,19 @@ public class Level {
 
 	public void add(Entity e) {
 		e.init(this);
-		if(e instanceof Particle){
-			particles.add((Particle)e);
+		if (e instanceof Particle) {
+			particles.add((Particle) e);
 		}
-		
-			else if (e instanceof Projectile){
-				e.init(this);
-				projectiles.add((Projectile)e);			
-		}else{
-		entities.add(e);
+
+		else if (e instanceof Projectile) {
+			e.init(this);
+			projectiles.add((Projectile) e);
+		} else {
+			entities.add(e);
 		}
 	}
 
-		public Tile getTile(int x, int y) {
+	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 		if (tiles[x + y * width] == Tile.col_rock) return Tile.rock;
 		if (tiles[x + y * width] == Tile.col_flower) return Tile.flower;

@@ -1,6 +1,6 @@
 package game.entity.projectile;
 
-import game.entity.particle.Particle;
+import game.entity.spawner.ParticleSpawner;
 import game.graphics.Screen;
 import game.graphics.Sprite;
 
@@ -20,9 +20,8 @@ public class WizzardProjectile extends Projectile {
 	}
 
 	public void update() {
-		if (level.tileCollition(x, y, nx, ny, 7)) {
-			Particle p = new Particle((int)x, (int)y, 500);
-			level.add(p);
+		if (level.tileCollition((int)(x + nx), (int)(y + ny), 7)) {
+			level.add(new ParticleSpawner((int) x, (int) y, 100, 50, level));
 			remove();
 		}
 		move();

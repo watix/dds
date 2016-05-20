@@ -7,6 +7,7 @@ import game.graphics.Sprite;
 public class WizzardProjectile extends Projectile {
 
 	public static final double FIRE_RATE = 15;
+	private int time = 0;
 
 	public WizzardProjectile(int x, int y, double dir) {
 		super(x, y, dir);
@@ -20,11 +21,17 @@ public class WizzardProjectile extends Projectile {
 	}
 
 	public void update() {
-		if (level.tileCollition((int)(x + nx), (int)(y + ny), 7)) {
+		time++;
+		if (time >= 7400) time = 0;
+		if (time > range) {
 			level.add(new ParticleSpawner((int) x, (int) y, 100, 50, level));
 			remove();
 		}
-		move();
+		if (level.tileCollition((int)(x + nx), (int)(y + ny), 7, 5 , 4)) {
+			level.add(new ParticleSpawner((int) x, (int) y, 100, 50, level));
+			remove();
+		}
+		//move();
 
 	}
 

@@ -1,8 +1,5 @@
 package game.graphics;
 
-import game.entity.mob.Player;
-import game.level.tile.Tile;
-
 import java.util.Random;
 
 public class Screen {

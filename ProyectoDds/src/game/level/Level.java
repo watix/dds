@@ -1,14 +1,13 @@
 package game.level;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import game.entity.Entity;
 import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
-import game.entity.spawner.Spawner;
 import game.graphics.Screen;
 import game.level.tile.Tile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level {
 
@@ -132,6 +131,7 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_flower) return Tile.flower;
 		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
 		if (tiles[x + y * width] == Tile.spawn) return Tile.voidTile;
+		if (tiles[x + y * width] == Tile.col_water) return Tile.water;
 
 		return Tile.grass;
 	}

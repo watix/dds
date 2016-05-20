@@ -9,6 +9,7 @@ public class Tile {
 	public Sprite sprite;
 	
 	public static final int col_grass = 0xFF00FF00;
+	public static final int col_water = 0xFF0000FF;
 	public static final int col_rock = 0xFFF0F0F0; 
 	public static final int col_flower = 0xFFFFFF00; 
 	public static final int col_void = 0xFF000000; 
@@ -17,6 +18,8 @@ public class Tile {
 	public static Tile grass = new GrassTile(Sprite.grass);
 	public static Tile flower = new FlowerTile(Sprite.flower);
 	public static Tile rock = new RockTile(Sprite.rock);
+	public static Tile water = new RockTile(Sprite.water);
+
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	
 	

@@ -1,10 +1,6 @@
 package game.entity.mob;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import game.entity.Entity;
-import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
 import game.graphics.Sprite;

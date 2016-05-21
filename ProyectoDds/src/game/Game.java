@@ -20,6 +20,8 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
+	
+	public int pruebaborrar;
 
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;

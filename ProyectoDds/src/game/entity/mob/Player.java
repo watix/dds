@@ -3,8 +3,10 @@ package game.entity.mob;
 import game.Game;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
+import game.graphics.AnimatedSprite;
 import game.graphics.Screen;
 import game.graphics.Sprite;
+import game.graphics.SpriteSheet;
 import game.input.Keyboard;
 import game.input.Mouse;
 
@@ -13,6 +15,7 @@ public class Player extends Mob {
 	private Sprite sprite;
 	private int animated = 0;
 	private boolean walking;
+	private AnimatedSprite test = new AnimatedSprite(SpriteSheet.tiles, 16, 16, 3) ;
 
 	private double fireRate = 0;
 
@@ -32,6 +35,7 @@ public class Player extends Mob {
 	}
 
 	public void update() {
+		test.update();
 		if (fireRate > 0) fireRate--;
 		int xa = 0, ya = 0;
 		if (animated < 60)
@@ -112,6 +116,7 @@ public class Player extends Mob {
 			sprite = Sprite.player_fordward;
 			break;
 		}
+		sprite = test.getSprite();
 		screen.renderPlayer(x - 16, y - 16, sprite, flip);
 
 	}

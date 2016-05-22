@@ -6,7 +6,7 @@ public class Sprite {
 	private int x, y;
 	private int height, width;
 	public int[] pixels;
-	private SpriteSheet sheet;
+	protected SpriteSheet sheet;
 
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 	public static Sprite flower = new Sprite(16, 1, 0, SpriteSheet.tiles);
@@ -30,6 +30,14 @@ public class Sprite {
 	
 	public static Sprite particle_normal = new Sprite(3, 0xFFAA00AA);
 
+	protected Sprite(SpriteSheet sheet, int width, int height){
+		
+		SIZE= (width==height) ? width :-1;
+		this.width = width;
+		this.height=height;
+		this.sheet=sheet;
+	}
+	
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 
 		SIZE = size;
@@ -58,6 +66,13 @@ public class Sprite {
 		pixels = new int[SIZE * SIZE];
 		setColor(color);
 
+	}
+
+	public Sprite(int[] Pixels, int width, int height) {
+		SIZE= (width==height) ? width :-1;
+		this.width=width;
+		this.height=height;
+		this.pixels=pixels;
 	}
 
 	private void setColor(int color) {

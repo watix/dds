@@ -2,6 +2,9 @@ package game.graphics;
 
 import java.util.Random;
 
+import game.entity.mob.Chaser;
+import game.entity.mob.Mob;
+
 public class Screen {
 	public int width, height;
 	public int[] pixels;
@@ -77,6 +80,24 @@ public class Screen {
 		}
 	}
 
+	public void renderMob(int xp, int yp, Mob mob) {
+		xp -= xOffset;
+		yp -= yOffset;
+		for (int y = 0; y < 32; y++) {
+			int ya = y + yp;
+			int ys = y;
+			for (int x = 0; x < 32; x++) {
+				int xa = x + xp;
+				int xs = x;
+				if (xa < -32 || xa >= width || ya < 0 || ya >= height) break;
+				if (xa < 0) xa = 0;
+				int color = mob.getSprite().pixels[xs + ys * 32];
+				if((mob instanceof Chaser) && color == 0xFFED1C24) color = 0xFF0AEA07;
+				if (color != 0xFFFF00FF) pixels[xa + ya * width] = color;
+			}
+		}
+	}
+	
 	public void renderMob(int xp, int yp, Sprite sprite, int flip) {
 		xp -= xOffset;
 		yp -= yOffset;

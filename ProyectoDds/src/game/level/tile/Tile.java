@@ -14,6 +14,8 @@ public class Tile {
 	public static final int col_flower = 0xFFFFFF00; 
 	public static final int col_void = 0xFF000000; 
 	public static final int spawn = 0xFF000000;
+	public static final int col_dummy = 0xFFFFFFFF;
+
 	
 	public static Tile grass = new GrassTile(Sprite.grass);
 	public static Tile flower = new FlowerTile(Sprite.flower);

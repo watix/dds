@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import game.entity.mob.Chaser;
 import game.entity.mob.Dummy;
 
 public class SpawnLevel extends Level {
@@ -25,7 +26,8 @@ public class SpawnLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");
 		}
-		add(new Dummy(9, 9));
+		add(new Dummy(9, 6)); // añade un dummy al nivel
+		add(new Chaser(7, 5)); 
 	}
 
 	/*

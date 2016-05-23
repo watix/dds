@@ -2,11 +2,9 @@ package game.entity.mob;
 
 import game.graphics.AnimatedSprite;
 import game.graphics.Screen;
-import game.graphics.Sprite;
 import game.graphics.SpriteSheet;
 
-public class Dummy extends Mob {
-
+public class Chaser extends Mob {
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.dummy_down, 32, 32, 3);
 	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.dummy_up, 32, 32, 3);
 	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.dummy_left, 32, 32, 3);
@@ -17,29 +15,14 @@ public class Dummy extends Mob {
 	private int xa = 0;
 	private int ya = 0;
 
-	private enum Direction {
-		UP, DOWN, LEFT, RIGHT
-	}
 
-	private Direction dir;
-
-	public Dummy(int x, int y) {
-		this.x = x << 4; // x*16
+	public Chaser(int x, int y) {
+		this.x = x << 4;
 		this.y = y << 4;
-		sprite = Sprite.dummy;
+		sprite =currentAnim.getSprites();
 	}
 
 	public void update() {
-		time++;
-		if (time % (random.nextInt(50)+30) == 0) {// cada segundo entra...y cambia de direccion
-			xa = random.nextInt(3) -1;
-			ya = random.nextInt(3) -1;
-			if(random.nextInt(4) == 0){
-				xa=0;
-				ya=0;
-			}
-		}
-
 		if (walking)
 			currentAnim.update();
 		else
@@ -64,12 +47,12 @@ public class Dummy extends Mob {
 		} else {
 			walking = false;
 		}
+
 	}
 
 	public void render(Screen screen) {
 		sprite = currentAnim.getSprites();
-		screen.renderMob(x, y, sprite, 0);
-
+		screen.renderMob(x, y, this);
 	}
 
 }

@@ -1,6 +1,7 @@
 package game.level;
 
 import game.entity.Entity;
+import game.entity.mob.Dummy;
 import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
 import game.graphics.Screen;
@@ -132,6 +133,7 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
 		if (tiles[x + y * width] == Tile.spawn) return Tile.voidTile;
 		if (tiles[x + y * width] == Tile.col_water) return Tile.water;
+//		if (tiles[x+y*width]== Tile.col_dummy&& entities.size()<2) add(new Dummy(x, y)); mirar solo spawnear uno!
 
 		return Tile.grass;
 	}

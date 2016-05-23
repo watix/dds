@@ -44,10 +44,10 @@ public class Player extends Mob {
 		else currentAnim.setFrame(0);
 		if (fireRate > 0) fireRate--;
 		int xa = 0, ya = 0;
-		if (animated < 60)
-			animated++;
-		else
-			animated = 0;
+//		if (animated < 60)
+//			animated++;
+//		else
+//			animated = 0;
 		if (input.up) {ya--;
 		currentAnim = up;}
 		if (input.down) {ya++;
@@ -89,7 +89,7 @@ public class Player extends Mob {
 
 	public void render(Screen screen) {
 
-		int dir = this.dir;
+//		int dir = this.dir;
 		int flip = 0;
 	/*	switch (dir) {    no borrar, ejemplo de uso por si acaso
 		case 0:
@@ -127,7 +127,7 @@ public class Player extends Mob {
 			break;
 		}*/
 		sprite = currentAnim.getSprites();
-		screen.renderPlayer(x - 16, y - 16, sprite, flip);
+		screen.renderMob(x - 16, y - 16, sprite, flip);
 
 	}
 

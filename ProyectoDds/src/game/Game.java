@@ -1,13 +1,5 @@
 package game;
 
-import game.entity.mob.Player;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
-import game.input.Keyboard;
-import game.input.Mouse;
-import game.level.Level;
-import game.level.SpawnLevel;
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,6 +10,14 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
+
+import game.entity.mob.Player;
+import game.graphics.Screen;
+import game.input.Keyboard;
+import game.input.Mouse;
+import game.level.Level;
+import game.level.SpawnLevel;
+import game.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -49,7 +49,8 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = new SpawnLevel("/textures/levels/map1.png");
-		player = new Player(8 * 16, 8 * 16, key);
+		TileCoordinate playerSpawn = new TileCoordinate(8, 8);
+		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
 		player.init(level);
 
 		addKeyListener(key);

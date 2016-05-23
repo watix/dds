@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import game.entity.mob.Dummy;
+
 public class SpawnLevel extends Level {
 
 	public SpawnLevel(String path) {
@@ -23,6 +25,7 @@ public class SpawnLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");
 		}
+		add(new Dummy(9, 9));
 	}
 
 	/*

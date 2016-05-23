@@ -16,17 +16,21 @@ public class Sprite {
 	
 	public static Sprite projectile = new Sprite(16, 0, 1, SpriteSheet.tiles);
 
-	public static Sprite player_fordward = new Sprite(32, 0, 5, SpriteSheet.tiles);
-	public static Sprite player_backward = new Sprite(32, 2, 5, SpriteSheet.tiles);
-	//public static Sprite player_left = new Sprite(32, 3, 5,  SpriteSheet.tiles);
-	public static Sprite player_right = new Sprite(32, 1, 5, SpriteSheet.tiles);
+	public static Sprite dummy_fordward = new Sprite(32, 0, 5, SpriteSheet.tiles);
+	public static Sprite dummy = new Sprite(32, 0, 0, SpriteSheet.dummy_down);
 
-	public static Sprite player_mov_f1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
-	public static Sprite player_mov_f2 = new Sprite(32, 0, 7, SpriteSheet.tiles);
-	public static Sprite player_mov_r1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
-	public static Sprite player_mov_r2 = new Sprite(32, 1, 7, SpriteSheet.tiles);
-	public static Sprite player_mov_b1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
-	public static Sprite player_mov_b2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
+
+	public static Sprite player_fordward = new Sprite(32, 0, 5, SpriteSheet.tiles);
+//	public static Sprite player_backward = new Sprite(32, 2, 5, SpriteSheet.tiles);
+//	//public static Sprite player_left = new Sprite(32, 3, 5,  SpriteSheet.tiles);
+//	public static Sprite player_right = new Sprite(32, 1, 5, SpriteSheet.tiles);
+
+//	public static Sprite player_mov_f1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
+//	public static Sprite player_mov_f2 = new Sprite(32, 0, 7, SpriteSheet.tiles);
+//	public static Sprite player_mov_r1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
+//	public static Sprite player_mov_r2 = new Sprite(32, 1, 7, SpriteSheet.tiles);
+//	public static Sprite player_mov_b1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
+//	public static Sprite player_mov_b2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
 	
 	public static Sprite particle_normal = new Sprite(3, 0xFFAA00AA);
 
@@ -91,9 +95,9 @@ public class Sprite {
 	}
 
 	private void load() {
-		for (int y = 0; y < SIZE; y++) {
-			for (int x = 0; x < SIZE; x++) {
-				pixels[x + y * SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SIZE];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.WIDTH];
 			}
 		}
 	}

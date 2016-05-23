@@ -18,11 +18,19 @@ public class SpriteSheet {
 
 	public static SpriteSheet tiles = new SpriteSheet("/textures/sprites/sprites.png", 256);
 	
+	//player sprites
 	public static SpriteSheet player = new SpriteSheet("/textures/sprites/Player.png", 128, 96);
 	public static SpriteSheet player_down = new SpriteSheet(player,2,0,1,3,32);//animacion hacia abajo
 	public static SpriteSheet player_up = new SpriteSheet(player,0,0,1,3,32);//animacion hacia arriba
 	public static SpriteSheet player_left = new SpriteSheet(player,3,0,1,3,32);//animacion hacia izda
 	public static SpriteSheet player_right = new SpriteSheet(player,1,0,1,3,32);//animacion hacia dcha
+	
+	//dummy sprites
+	public static SpriteSheet dummy = new SpriteSheet("/textures/sprites/Dummy.png", 128, 96);
+	public static SpriteSheet dummy_down = new SpriteSheet(dummy,2,0,1,3,32);//animacion hacia abajo
+	public static SpriteSheet dummy_up = new SpriteSheet(dummy,0,0,1,3,32);//animacion hacia arriba
+	public static SpriteSheet dummy_left = new SpriteSheet(dummy,3,0,1,3,32);//animacion hacia izda
+	public static SpriteSheet dummy_right = new SpriteSheet(dummy,1,0,1,3,32);//animacion hacia dcha	
 
 
 	public SpriteSheet(SpriteSheet sheet, int x, int y, int width, int height, int spriteSize) {

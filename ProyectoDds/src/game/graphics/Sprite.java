@@ -18,7 +18,7 @@ public class Sprite {
 
 	public static Sprite player_fordward = new Sprite(32, 0, 5, SpriteSheet.tiles);
 	public static Sprite player_backward = new Sprite(32, 2, 5, SpriteSheet.tiles);
-	// public static Sprite player_left = new Sprite(32, 3, 5,  SpriteSheet.tiles);
+	//public static Sprite player_left = new Sprite(32, 3, 5,  SpriteSheet.tiles);
 	public static Sprite player_right = new Sprite(32, 1, 5, SpriteSheet.tiles);
 
 	public static Sprite player_mov_f1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
@@ -68,7 +68,7 @@ public class Sprite {
 
 	}
 
-	public Sprite(int[] Pixels, int width, int height) {
+	public Sprite(int[] pixels, int width, int height) {
 		SIZE= (width==height) ? width :-1;
 		this.width=width;
 		this.height=height;

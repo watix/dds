@@ -14,8 +14,12 @@ public class Player extends Mob {
 	private Keyboard input;
 	private Sprite sprite;
 	private int animated = 0;
-	private boolean walking;
-	private AnimatedSprite test = new AnimatedSprite(SpriteSheet.tiles, 16, 16, 3) ;
+	private boolean walking = false;
+	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3) ;
+	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 32, 32, 3) ;
+	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3) ;
+	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3) ;
+	private AnimatedSprite currentAnim = down;
 
 	private double fireRate = 0;
 
@@ -23,6 +27,7 @@ public class Player extends Mob {
 
 		this.input = input;
 		sprite = Sprite.player_fordward;
+		currentAnim = down;
 	}
 
 	public Player(int x, int y, Keyboard input) {
@@ -35,17 +40,22 @@ public class Player extends Mob {
 	}
 
 	public void update() {
-		test.update();
+		if(walking)currentAnim.update();
+		else currentAnim.setFrame(0);
 		if (fireRate > 0) fireRate--;
 		int xa = 0, ya = 0;
 		if (animated < 60)
 			animated++;
 		else
 			animated = 0;
-		if (input.up) ya--;
-		if (input.down) ya++;
-		if (input.left) xa--;
-		if (input.right) xa++;
+		if (input.up) {ya--;
+		currentAnim = up;}
+		if (input.down) {ya++;
+		currentAnim = down;}
+		if (input.left) {xa--;
+		currentAnim = left;}
+		if (input.right) {xa++;
+		currentAnim = right;}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
@@ -81,7 +91,7 @@ public class Player extends Mob {
 
 		int dir = this.dir;
 		int flip = 0;
-		switch (dir) {
+	/*	switch (dir) {    no borrar, ejemplo de uso por si acaso
 		case 0:
 			sprite = Sprite.player_fordward;
 			if (walking) {
@@ -115,8 +125,8 @@ public class Player extends Mob {
 		default:
 			sprite = Sprite.player_fordward;
 			break;
-		}
-		sprite = test.getSprite();
+		}*/
+		sprite = currentAnim.getSprites();
 		screen.renderPlayer(x - 16, y - 16, sprite, flip);
 
 	}

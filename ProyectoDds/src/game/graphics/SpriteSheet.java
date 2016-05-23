@@ -10,12 +10,20 @@ public class SpriteSheet {
 	private String path;
 	public final int SIZE;
 	public int[] pixels;
-	private final int WIDTH;
-	private final int HEIGHT;
+
+	public final int WIDTH;
+	public final int HEIGHT;
 
 	public Sprite[] sprites;
 
 	public static SpriteSheet tiles = new SpriteSheet("/textures/sprites/sprites.png", 256);
+	
+	public static SpriteSheet player = new SpriteSheet("/textures/sprites/Player.png", 128, 96);
+	public static SpriteSheet player_down = new SpriteSheet(player,2,0,1,3,32);//animacion hacia abajo
+	public static SpriteSheet player_up = new SpriteSheet(player,0,0,1,3,32);//animacion hacia arriba
+	public static SpriteSheet player_left = new SpriteSheet(player,3,0,1,3,32);//animacion hacia izda
+	public static SpriteSheet player_right = new SpriteSheet(player,1,0,1,3,32);//animacion hacia dcha
+
 
 	public SpriteSheet(SpriteSheet sheet, int x, int y, int width, int height, int spriteSize) {
 		int xx = x * spriteSize;
@@ -37,15 +45,14 @@ public class SpriteSheet {
 			}
 		}
 		int frame = 0;
-		sprites = new Sprite[width*height];
+		sprites = new Sprite[width * height];
 		for (int ya = 0; ya < height; ya++) {
 			for (int xa = 0; xa < width; xa++) {
-				frame++;
 				int[] spritePixels = new int[spriteSize * spriteSize];
 				for (int y0 = 0; y0 < spriteSize; y0++) {
 					for (int x0 = 0; x0 < spriteSize; x0++) {
 						spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize)
-								+ (y0 + ya * spriteSize * WIDTH)];
+								+ (y0 + ya * spriteSize )* WIDTH];
 
 					}
 				}
@@ -53,6 +60,15 @@ public class SpriteSheet {
 				sprites[frame++] = sprite;
 			}
 		}
+	}
+
+	public SpriteSheet(String path, int width, int height) {
+		this.path = path;
+		this.SIZE = -1;
+		this.WIDTH = width;
+		this.HEIGHT = height;
+		pixels = new int[WIDTH * HEIGHT];
+		load();
 	}
 
 	public SpriteSheet(String path, int size) {
@@ -64,7 +80,7 @@ public class SpriteSheet {
 		load();
 	}
 
-	public Sprite[] getSprite() {
+	public Sprite[] getSprites() {
 		return sprites;
 	}
 

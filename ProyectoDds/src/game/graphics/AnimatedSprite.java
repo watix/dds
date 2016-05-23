@@ -2,7 +2,7 @@ package game.graphics;
 
 public class AnimatedSprite extends Sprite {
 
-	private int frames = 0;
+	private int frame = 0;
 	private Sprite sprite;
 	private int rate = 5;
 	private int length = -1;
@@ -11,28 +11,32 @@ public class AnimatedSprite extends Sprite {
 	public AnimatedSprite(SpriteSheet sheet, int width, int height, int length) {
 		super(sheet, width, height);
 		this.length = length;
-		sprite=sheet.getSprite()[0];
-		if (length > sheet.getSprite().length)
-			System.out.println("Error");
+		sprite=sheet.getSprites()[0];
+		if (length > sheet.getSprites().length)
+			System.err.println("ErrorAnimatedSprite");
 	}
 
 	public void update() {
 		time++;
-		if(time% rate ==0){
-		if (frames >= length-1)
-			frames = 0;
+		if(time % rate ==0){
+		if (frame >= length-1)
+			frame = 0;
 		else
-			frames++;
-		sprite = sheet.getSprite()[frames];
+			frame++;
+		sprite = sheet.getSprites()[frame];
 		}
-		System.out.println(sprite + ", Frame "+ frames);;
 	}
 
-	public Sprite getSprite() {
+	public Sprite getSprites() {
 		return sprite;
 	}
 
 	public void setFrameRate(int frames) {
 		this.rate = frames;
+	}
+
+	public void setFrame(int index) {
+		if(index>sheet.getSprites().length-1) return;
+		sprite=sheet.getSprites()[index];
 	}
 }

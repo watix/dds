@@ -7,7 +7,7 @@ import game.graphics.Sprite;
 import game.level.Level;
 
 public abstract class Entity {
-	public int x, y;
+	protected double x, y;
 	protected Sprite sprite;
 	private boolean removed = false;
 	protected Level level;
@@ -27,6 +27,7 @@ public abstract class Entity {
 	}
 
 	public void render(Screen screen) {
+		if (sprite != null) screen.renderSprite((int)x,(int)y, sprite, true);
 
 	}
 
@@ -34,6 +35,9 @@ public abstract class Entity {
 		// remove from level
 		removed = true;
 	}
+	
+	public double getX(){return x;}
+	public double getY(){return y;}
 
 	public Sprite getSprite() {
 		return sprite;

@@ -20,8 +20,7 @@ import game.level.SpawnLevel;
 import game.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;
@@ -51,7 +50,7 @@ public class Game extends Canvas implements Runnable {
 		level = new SpawnLevel("/textures/levels/map1.png");
 		TileCoordinate playerSpawn = new TileCoordinate(8, 8);
 		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
-		player.init(level);
+		level.add(player);
 
 		addKeyListener(key);
 
@@ -119,7 +118,6 @@ public class Game extends Canvas implements Runnable {
 
 	public void update() {
 		key.update();
-		player.update();
 		level.update();
 	}
 
@@ -130,10 +128,9 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		int xScroll = player.x - screen.width / 2;
-		int yScroll = player.y - screen.height / 2;
-		level.render(xScroll, yScroll, screen);
-		player.render(screen);
+		double xScroll = player.getX() - screen.width / 2;
+		double yScroll = player.getY() - screen.height / 2;
+		level.render((int)xScroll, (int)yScroll, screen);
 		//screen.renderSheet(40, 40, SpriteSheet.player_down, false); muestra el sprite de la animacion
 		
 		for (int i = 0; i < pixels.length; i++) {

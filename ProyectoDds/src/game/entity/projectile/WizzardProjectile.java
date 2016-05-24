@@ -9,7 +9,7 @@ public class WizzardProjectile extends Projectile {
 	public static final double FIRE_RATE = 15;
 	private int time = 0;
 
-	public WizzardProjectile(int x, int y, double dir) {
+	public WizzardProjectile(double x, double y, double dir) {
 		super(x, y, dir);
 		range = random.nextInt(100) + 50;
 		speed = 2;

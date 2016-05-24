@@ -1,14 +1,14 @@
 package game.level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.entity.Entity;
-import game.entity.mob.Dummy;
+import game.entity.mob.Player;
 import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
 import game.graphics.Screen;
 import game.level.tile.Tile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Level {
 
@@ -20,6 +20,7 @@ public class Level {
 	private List<Entity> entities = new ArrayList<Entity>();
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public List<Particle> particles = new ArrayList<Particle>();
+	private List<Player> players = new ArrayList<Player>();
 
 	public Level(int width, int height) {
 		this.height = height;
@@ -56,6 +57,9 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).update();
 		}
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).update();
+		}
 		remove();
 	}
 
@@ -69,6 +73,9 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			if (particles.get(i).isRemoved()) particles.remove(i);
 		}
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).isRemoved()) players.remove(i);
+		}
 	}
 
 	public List<Projectile> getProjectiles() {
@@ -79,11 +86,11 @@ public class Level {
 
 	}
 
-	public boolean tileCollition(int x, int y, int size, int xOffset,int yOffset) {
+	public boolean tileCollition(int x, int y, int size, int xOffset, int yOffset) {
 		boolean solid = false;
 		for (int c = 0; c < 4; c++) {
-			int xt = (x - c % 2 * size + xOffset ) >>4;
-			int yt = (y - c / 2 * size + yOffset ) >>4;
+			int xt = (x - c % 2 * size + xOffset) >> 4;
+			int yt = (y - c / 2 * size + yOffset) >> 4;
 			if (getTile(xt, yt).solid()) solid = true;
 		}
 		return solid;
@@ -110,20 +117,72 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).render(screen);
 		}
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).render(screen);
+		}
 	}
 
 	public void add(Entity e) {
 		e.init(this);
 		if (e instanceof Particle) {
 			particles.add((Particle) e);
-		}
-
-		else if (e instanceof Projectile) {
-			e.init(this);
+		} else if (e instanceof Projectile) {
 			projectiles.add((Projectile) e);
+		} else if (e instanceof Player) {
+			players.add((Player) e);
 		} else {
 			entities.add(e);
 		}
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public Player getPlayerAt(int index) {
+
+		return players.get(index);
+	}
+
+	public Player getPlayerClient() {
+		return players.get(0);
+	}
+
+	// metodo universal para obtener todas las entity que están en un radio
+	// dado.
+	public List<Entity> getEntities(Entity e, int radius) {
+		List<Entity> result = new ArrayList<Entity>();
+		int ex = (int)e.getX();
+		int ey = (int)e.getY();
+
+		for (int i = 0; i < entities.size(); i++) {
+			Entity entity = entities.get(i);
+			int x = (int)entity.getX();
+			int y = (int)entity.getY();
+			int dx = Math.abs(x - ex);
+			int dy = Math.abs(y - ey);
+			double distance = Math.sqrt((dx * dx) + (dy * dy));
+			if (distance <= radius) result.add(entity);
+		}
+		return result;
+
+	}
+
+	public List<Player> getPlayers(Entity e, int radius) {
+		List<Player> result = new ArrayList<Player>();
+		int ex = (int)e.getX();
+		int ey = (int)e.getY();
+
+		for (int i = 0; i < players.size(); i++) {
+			Player player = players.get(i);
+			int x = (int)player.getX();
+			int y = (int)player.getY();
+			int dx = Math.abs(x - ex);
+			int dy = Math.abs(y - ey);
+			double distance = Math.sqrt((dx * dx) + (dy * dy));
+			if (distance <= radius) result.add(player);
+		}
+		return result;
 	}
 
 	public Tile getTile(int x, int y) {
@@ -133,7 +192,8 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
 		if (tiles[x + y * width] == Tile.spawn) return Tile.voidTile;
 		if (tiles[x + y * width] == Tile.col_water) return Tile.water;
-//		if (tiles[x+y*width]== Tile.col_dummy&& entities.size()<2) add(new Dummy(x, y)); mirar solo spawnear uno!
+		// if (tiles[x+y*width]== Tile.col_dummy&& entities.size()<2) add(new
+		// Dummy(x, y)); mirar solo spawnear uno!
 
 		return Tile.grass;
 	}

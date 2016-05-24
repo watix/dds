@@ -26,8 +26,8 @@ public class SpawnLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");
 		}
-		add(new Dummy(9, 6)); // añade un dummy al nivel
-		add(new Chaser(7, 5)); 
+		//add(new Dummy(9, 6)); // añade un dummy al nivel
+		//add(new Chaser(2, 2)); 
 	}
 
 	/*

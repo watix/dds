@@ -9,7 +9,7 @@ public class FlowerTile extends Tile {
 	}
 
 	public void render(int x, int y, Screen screen) {
-
+//System.out.println("me han dado");
 		screen.renderTile(x << 4, y << 4, sprite);
 	}
 

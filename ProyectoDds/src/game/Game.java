@@ -20,7 +20,7 @@ import game.level.SpawnLevel;
 import game.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
 
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;
@@ -119,20 +119,33 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		key.update();
 		level.update();
+		
+		if (level.entities.size() == 0) {
+			level = new SpawnLevel("/textures/levels/map2.png");
+			TileCoordinate playerSpawn = new TileCoordinate(8, 8);
+			player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
+			level.add(player);
+		}
 	}
 
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
+		// singleton
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
+		// limpia la pantalla el array pixels con la info a renderizar
 		screen.clear();
+		// hace que el player esté siempre en el centro de la pantalla con los
+		// offset
 		double xScroll = player.getX() - screen.width / 2;
 		double yScroll = player.getY() - screen.height / 2;
-		level.render((int)xScroll, (int)yScroll, screen);
-		//screen.renderSheet(40, 40, SpriteSheet.player_down, false); muestra el sprite de la animacion
-		
+		//
+		level.render((int) xScroll, (int) yScroll, screen);
+		// screen.renderSheet(40, 40, SpriteSheet.player_down, false); muestra
+		// el sprite de la animacion
+
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}

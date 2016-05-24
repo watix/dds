@@ -1,5 +1,7 @@
 package game.entity.mob;
 
+import java.util.List;
+
 import game.entity.Entity;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
@@ -66,8 +68,14 @@ public abstract class Mob extends Entity {
 	public abstract void render(Screen screen);
 
 	protected void shoot(double x, double y, double dir) {
+		int nump = level.getProjectiles().size();
+		if (nump<4){
 		Projectile p = new WizzardProjectile(x, y, dir);
 		level.add(p);
+		}
+		nump++;
+		
+		
 
 	}
 

@@ -35,4 +35,5 @@ public class Tile {
 	public boolean solid() {
 		return false;
 	}
+	
 }

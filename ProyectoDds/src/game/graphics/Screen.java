@@ -59,8 +59,11 @@ public class Screen {
 			int ya = y + yp;
 			for (int x = 0; x < sprite.getWidth(); x++) {
 				int xa = x + xp;
-				if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;				
-				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.getWidth()];
+				if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+				int color = sprite.pixels[x + y * sprite.SIZE];
+				if (color != 0xFFFF00FF) pixels[xa + ya * width] = sprite.pixels[x + y * sprite.getWidth()];
+
+				
 			}
 		}
 	}

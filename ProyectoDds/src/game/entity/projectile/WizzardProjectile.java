@@ -24,11 +24,11 @@ public class WizzardProjectile extends Projectile {
 		time++;
 		if (time >= 7400) time = 0;
 		if (time > range) {
-			level.add(new ParticleSpawner((int) x, (int) y, 100, 50, level));
+			level.add(new ParticleSpawner((int) x, (int) y, 200, 50, level));
 			remove();
 		}
 		if (level.tileCollition((int)(x + nx), (int)(y + ny), 7, 5 , 4)) {
-			level.add(new ParticleSpawner((int) x, (int) y, 100, 50, level));
+			level.add(new ParticleSpawner((int) x, (int) y, 200, 50, level));
 			remove();
 		}
 		//move();

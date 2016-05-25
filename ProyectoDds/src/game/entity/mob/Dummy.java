@@ -56,7 +56,8 @@ public class Dummy extends Mob {
 		} else if (xa > 0) {
 			currentAnim = right;
 			dir = Direction.RIGHT;
-		}
+		}else{currentAnim = down;
+		dir = Direction.DOWN;}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);

@@ -38,6 +38,11 @@ public abstract class Entity {
 	
 	public double getX(){return x;}
 	public double getY(){return y;}
+	
+	public void setXY(int i, int j) {
+		this.x= i*16;
+		this.y = j*16;		
+	}
 
 	public Sprite getSprite() {
 		return sprite;

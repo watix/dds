@@ -1,16 +1,20 @@
 package game.level;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import game.entity.Entity;
+import game.entity.mob.Dummy;
 import game.entity.mob.Player;
 import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
 import game.entity.spawner.ParticleSpawner;
 import game.graphics.Screen;
-import game.graphics.Sprite;
 import game.level.tile.Tile;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.imageio.ImageIO;
 
 public class Level {
 
@@ -48,9 +52,9 @@ public class Level {
 		tile_size = 16;
 	}
 
-	protected void loadLevel(String path) {
-
-	}
+//	protected void loadLevel(String path) {
+//		
+//	}
 
 	public void update() {
 
@@ -97,7 +101,7 @@ public class Level {
 
 	private void time() {
 
-	}
+	}//refactorizar
 
 	public boolean tileCollition(int x, int y, int size, int xOffset, int yOffset) {
 		boolean solid = false;
@@ -230,10 +234,34 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
 		if (tiles[x + y * width] == Tile.spawn) return Tile.voidTile;
 		if (tiles[x + y * width] == Tile.col_water) return Tile.water;
+		if (tiles[x + y * width] == Tile.col_dummy) {
+			removeTile(x, y);
+			add(new Dummy(9, 6));
+			return Tile.voidTile;
+		}//aplicar factory
+		
 		// if (tiles[x+y*width]== Tile.col_dummy&& entities.size()<2) add(new
 		// Dummy(x, y)); mirar solo spawnear uno!
 
 		return Tile.grass;
+	}
+	
+	public void loadLevel(String path) {
+		try {
+			BufferedImage image = ImageIO.read(SpawnLevel.class.getResource(path));
+			int w = width = image.getWidth();
+			int h = height = image.getHeight();
+			tiles = new int[w * h];
+			image.getRGB(0, 0, w, h, tiles, 0, w);
+			tiles = this.tiles;
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Could not find level path!!!!");
+		}
+//		add(new Dummy(9, 6)); // añade un dummy al nivel
+//		add(new Chaser(4, 3));
+//		add(new Chaser(8, 3));
+
 	}
 
 	public void removeTile(int ix, int iy) {

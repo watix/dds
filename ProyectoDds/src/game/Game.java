@@ -26,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 	private static int height = 168; // width / 16 * 9;
 	private static int scale = 3;
 	public static String title = "AWesoME";
+	private static Game game1;
 
 	private Thread thread;
 	private boolean running = false;
@@ -40,14 +41,14 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
-	public Game() {
+	private Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new SpawnLevel("/textures/levels/map1.png");
+		level = new Level("/textures/levels/map1.png");
 		TileCoordinate playerSpawn = new TileCoordinate(8, 8);
 		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
 		level.add(player);
@@ -119,13 +120,15 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		key.update();
 		level.update();
-		
-		if (level.enemyEntities.size() == 0) {
-			level = new SpawnLevel("/textures/levels/map2.png");
-			TileCoordinate playerSpawn = new TileCoordinate(8, 8);
-			player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
-			level.add(player);
-		}
+
+		 if (level.enemyEntities.size() == 0) {
+			 level.loadLevel("/textures/levels/map2.png");
+		 //level = new SpawnLevel("/textures/levels/map2.png");
+		 TileCoordinate playerSpawn = new TileCoordinate(8, 8);
+		 player.setXY(8,8);
+		 // = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
+		 //level.add(player);
+		 }
 	}
 
 	public void render() {
@@ -158,18 +161,34 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 	}
 
+	public static Game getGame() {
+		if (game1 != null)
+			return game1;
+		else {
+			return new Game();
+		}
+	}
+
 	public static void main(String[] args) {
 
-		Game game = new Game();
-		game.frame.setResizable(false);
-		game.frame.setTitle(title);
-		game.frame.add(game);
-		game.frame.pack();
-		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		game.frame.setLocationRelativeTo(null);
-		game.frame.setVisible(true);
+		game1 = Game.getGame();
+		game1.frame.setResizable(false);
+		game1.frame.setTitle(title);
+		game1.frame.add(game1);
+		game1.frame.pack();
+		game1.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game1.frame.setLocationRelativeTo(null);
+		game1.frame.setVisible(true);
+//		Game game = new Game();
+//		game.frame.setResizable(false);
+//		game.frame.setTitle(title);
+//		game.frame.add(game);
+//		game.frame.pack();
+//		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		game.frame.setLocationRelativeTo(null);
+//		game.frame.setVisible(true);
 
-		game.start();
+		game1.start();
 
 	}
 }

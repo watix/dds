@@ -1,12 +1,9 @@
 package game.entity.mob;
 
-import java.util.List;
-
 import game.entity.Entity;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
 import game.graphics.Screen;
-import game.graphics.Sprite;
 
 public abstract class Mob extends Entity {
 

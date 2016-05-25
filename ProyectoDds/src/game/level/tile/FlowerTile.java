@@ -12,6 +12,7 @@ public class FlowerTile extends Tile {
 //System.out.println("me han dado");
 		screen.renderTile(x << 4, y << 4, sprite);
 	}
+	
 
 
 }

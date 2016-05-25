@@ -7,6 +7,7 @@ import game.entity.Entity;
 import game.entity.mob.Player;
 import game.entity.particle.Particle;
 import game.entity.projectile.Projectile;
+import game.entity.spawner.ParticleSpawner;
 import game.graphics.Screen;
 import game.graphics.Sprite;
 import game.level.tile.Tile;
@@ -20,6 +21,7 @@ public class Level {
 	public Screen screen;
 	public boolean render = false;
 
+	public List<Entity> enemyEntities = new ArrayList<Entity>();
 	public List<Entity> entities = new ArrayList<Entity>();
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public List<Particle> particles = new ArrayList<Particle>();
@@ -55,6 +57,9 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
+		for (int i = 0; i < enemyEntities.size(); i++) {
+			enemyEntities.get(i).update();
+		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
@@ -70,6 +75,9 @@ public class Level {
 	private void remove() {
 		for (int i = 0; i < entities.size(); i++) {
 			if (entities.get(i).isRemoved()) entities.remove(i);
+		}
+		for (int i = 0; i < enemyEntities.size(); i++) {
+			if (enemyEntities.get(i).isRemoved()) enemyEntities.remove(i);
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			if (projectiles.get(i).isRemoved()) projectiles.remove(i);
@@ -117,6 +125,9 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(screen);
 		}
+		for (int i = 0; i < enemyEntities.size(); i++) {
+			enemyEntities.get(i).render(screen);
+		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).render(screen);
 		}
@@ -136,8 +147,10 @@ public class Level {
 			projectiles.add((Projectile) e);
 		} else if (e instanceof Player) {
 			players.add((Player) e);
-		} else {
+		} else if (e instanceof ParticleSpawner) {
 			entities.add(e);
+		} else {
+			enemyEntities.add(e);
 		}
 	}
 
@@ -161,14 +174,33 @@ public class Level {
 		int ex = (int) e.getX();
 		int ey = (int) e.getY();
 
-		for (int i = 0; i < entities.size(); i++) {
-			Entity entity = entities.get(i);
+		for (int i = 0; i < enemyEntities.size(); i++) {
+			Entity entity = enemyEntities.get(i);
 			int x = (int) entity.getX();
 			int y = (int) entity.getY();
 			int dx = Math.abs(x - ex);
 			int dy = Math.abs(y - ey);
 			double distance = Math.sqrt((dx * dx) + (dy * dy));
 			if (distance <= radius) result.add(entity);
+		}
+		return result;
+
+	}
+
+	public int[] getEntitiesIndex(Entity e, int radius) {
+		int[] result = new int[entities.size() + 1];
+		int ex = (int) e.getX();
+		int ey = (int) e.getY();
+
+		for (int i = 0; i < entities.size(); i++) {
+			result[0] = 1;
+			Entity entity = entities.get(i);
+			int x = (int) entity.getX();
+			int y = (int) entity.getY();
+			int dx = Math.abs(x - ex);
+			int dy = Math.abs(y - ey);
+			double distance = Math.sqrt((dx * dx) + (dy * dy));
+			if (distance <= radius) result[i + 1] = i;
 		}
 		return result;
 
@@ -204,15 +236,9 @@ public class Level {
 		return Tile.grass;
 	}
 
-
-
 	public void removeTile(int ix, int iy) {
 
-		Tile tile = getTile(ix, ix);
-		System.out.println("hola1 " + tile.sprite);
-		screen.renderTile(ix + 16 , iy + 16 , tile.sprite ); // mirar el sprite Size que es ahi dnde no entra
-		System.out.println("hola2 " + tile.sprite);
-		// screen.renderTile((int) x - 11, (int) y - 2, sprite);
+		tiles[ix + iy * width] = Tile.col_grass;
 
 	}
 }

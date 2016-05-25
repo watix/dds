@@ -27,7 +27,8 @@ public class Chaser extends Mob {
 	private void move() {
 		xa = 0;
 		ya = 0;
-		List<Player> players = level.getPlayers(this, 50);
+		List<Player> players = level.getPlayers(this, 10);
+		System.out.println(players.size());
 		if (players.size() > 0) {
 			Player player = players.get(0);
 			if (x < player.getX()) xa += speed;
@@ -46,6 +47,7 @@ public class Chaser extends Mob {
 	}
 
 	public void update() {
+		System.out.println("chaser moving");
 		move();
 		if (walking) currentAnim.update();
 		else
@@ -69,7 +71,7 @@ public class Chaser extends Mob {
 
 	public void render(Screen screen) {
 		sprite = currentAnim.getSprites();
-		screen.renderMob((int) (x - 16), (int) (y - 16), this);
+		screen.renderMob((int) (x -16), (int) (y -16), this);
 	}
 
 }

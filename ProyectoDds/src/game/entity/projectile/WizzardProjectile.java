@@ -28,10 +28,10 @@ public class WizzardProjectile extends Projectile {
 			remove();
 		}
 		if (level.tileCollition((int)(x + nx), (int)(y + ny), 7, 5 , 4)) {
-			level.add(new ParticleSpawner((int) x, (int) y, 200, 50, level));
+			level.add(new ParticleSpawner((int) x, (int) y, 200, 5, level));
 			remove();
 		}
-		//move();
+		//move(); mueve la bomba
 
 	}
 

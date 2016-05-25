@@ -9,7 +9,6 @@ import game.entity.mob.Chaser;
 import game.entity.mob.Dummy;
 
 public class SpawnLevel extends Level {
-	
 
 	public SpawnLevel(String path) {
 		super(path);
@@ -27,10 +26,11 @@ public class SpawnLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");
 		}
-		// add(new Dummy(9, 6)); // añade un dummy al nivel
-		add(new Chaser(2, 2));
+		add(new Dummy(9, 6)); // añade un dummy al nivel
+		add(new Chaser(4, 3));
+		add(new Chaser(8, 3));
+
 	}
-	
 
 	/*
 	 * grass = 0x00FF00 flower = 0xFFFF00 rock = 0xF0F0F0 void = 0x000000

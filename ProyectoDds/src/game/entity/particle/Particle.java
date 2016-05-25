@@ -62,7 +62,6 @@ public class Particle extends Entity {
 	private void move(double x, double y) {
 
 		if (collition(x, y)) {
-			System.out.println(collition(x, y));
 			this.xa *= -0.5;
 			this.ya *= -0.5;
 			this.za *= -0.5;
@@ -76,6 +75,7 @@ public class Particle extends Entity {
 	}
 
 	public boolean collition(double x, double y) {
+
 		boolean solid = false;
 		for (int c = 0; c < 4; c++) {
 			double xt = (x - c % 2 * 16) / 16;
@@ -86,10 +86,20 @@ public class Particle extends Entity {
 			if (c / 2 == 0) iy = (int) Math.floor(yt);
 
 			if (level.getTile(ix, iy).solid()) solid = true;
-			if (level.getTile(ix, iy) == Tile.flower) {level.removeTile(ix, iy);
-			level.render= true;
+			if (level.getEntities(this, 50).size() > 0) {
+
+				if(level.getEntitiesIndex(this, 10)[0]>=1){
+				level.enemyEntities.remove(level.getEntitiesIndex(this, 0)[1]);
+				System.out.println(level.getEntitiesIndex(this, 0)[1]);
 			}
-			
+
+//				System.out.println(level.getEntities(this, 0).size());
+			}
+			if (level.getTile(ix, iy) == Tile.flower) {
+				level.removeTile(ix, iy);
+				level.render = true;
+			}
+
 		}
 		return solid;
 	}

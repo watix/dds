@@ -15,6 +15,7 @@ public class Sprite {
 	public static Sprite water = new Sprite(16, 5, 0, SpriteSheet.tiles);
 	
 	public static Sprite projectile = new Sprite(16, 0, 1, SpriteSheet.tiles);
+	public static Sprite bomba = new Sprite(16, 1, 1, SpriteSheet.tiles);
 
 	public static Sprite dummy_fordward = new Sprite(32, 0, 5, SpriteSheet.tiles);
 	public static Sprite dummy = new Sprite(32, 0, 0, SpriteSheet.dummy_down);

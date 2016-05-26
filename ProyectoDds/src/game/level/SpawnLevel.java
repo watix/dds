@@ -29,9 +29,7 @@ public class SpawnLevel extends Level {
 
 	}
 
-	/*
-	 * grass = 0x00FF00 flower = 0xFFFF00 rock = 0xF0F0F0 void = 0x000000
-	 */
+
 	protected void generateLevel() {
 
 	}

@@ -25,8 +25,9 @@ public class Game extends Canvas implements Runnable {
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;
 	private static int scale = 3;
-	public static String title = "AWesoME";
-	private static Game game1;
+	public static String title = "AWesoME LEVEL ";
+	private static Game game;
+	private static int stage = 1;
 
 	private Thread thread;
 	private boolean running = false;
@@ -106,7 +107,7 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps");
+				frame.setTitle(title +stage+ "  |  " + updates + " ups, " + frames + " fps");
 				updates = 0;
 				frames = 0;
 			}
@@ -122,6 +123,7 @@ public class Game extends Canvas implements Runnable {
 		level.update();
 
 		if (level.enemyEntities.size() == 0) {
+			stage++;
 			level.loadLevel("/textures/levels/map3.png");
 			level.removeParticles();
 			// level = new SpawnLevel("/textures/levels/map2.png");
@@ -129,6 +131,7 @@ public class Game extends Canvas implements Runnable {
 			player.estado = new EstadoNormal();
 
 			player.setXY(8, 8);
+
 			// = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
 			// level.add(player);
 		}
@@ -165,7 +168,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static Game getGame() {
-		if (game1 != null) return game1;
+		if (game != null) return game;
 		else {
 			return new Game();
 		}
@@ -173,24 +176,16 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 
-		game1 = Game.getGame();
-		game1.frame.setResizable(false);
-		game1.frame.setTitle(title);
-		game1.frame.add(game1);
-		game1.frame.pack();
-		game1.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		game1.frame.setLocationRelativeTo(null);
-		game1.frame.setVisible(true);
-		// Game game = new Game();
-		// game.frame.setResizable(false);
-		// game.frame.setTitle(title);
-		// game.frame.add(game);
-		// game.frame.pack();
-		// game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// game.frame.setLocationRelativeTo(null);
-		// game.frame.setVisible(true);
+		game = Game.getGame();
+		game.frame.setResizable(false);
+		game.frame.setTitle(title);
+		game.frame.add(game);
+		game.frame.pack();
+		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.frame.setLocationRelativeTo(null);
+		game.frame.setVisible(true);
 
-		game1.start();
+		game.start();
 
 	}
 }

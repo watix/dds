@@ -67,6 +67,7 @@ public class Level {
 		}
 		for (int i = 0; i < enemyEntities.size(); i++) {
 			enemyEntities.get(i).update();
+			System.out.println(enemyEntities.size());
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
@@ -85,7 +86,8 @@ public class Level {
 			if (entities.get(i).isRemoved()) entities.remove(i);
 		}
 		for (int i = 0; i < enemyEntities.size(); i++) {
-			if (enemyEntities.get(i).isRemoved()) enemyEntities.remove(i);
+			if (enemyEntities.get(i).isRemoved()) {enemyEntities.remove(i);
+			}
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			if (projectiles.get(i).isRemoved()) projectiles.remove(i);
@@ -267,10 +269,27 @@ public class Level {
 //		add(new Chaser(8, 3));
 
 	}
+	
+	public void removeParticles(){
+		for(int i = 0; i < particles.size();i++){
+			particles.get(i).remove();
+		}
+		for(int i = 0; i < projectiles.size();i++){
+			projectiles.get(i).remove();
+		}
+	}
 
 	public void removeTile(int ix, int iy) {
 
 		tiles[ix + iy * width] = Tile.col_grass;
 
+	}
+
+	public void removeEnemy(Entity entity) {
+		for (Entity e : enemyEntities){
+			if (entity.equals(e)) e.remove();
+			
+		}
+		
 	}
 }

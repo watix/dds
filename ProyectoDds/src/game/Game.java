@@ -12,11 +12,11 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import game.entity.mob.Player;
+import game.entity.mob.state.EstadoNormal;
 import game.graphics.Screen;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.level.Level;
-import game.level.SpawnLevel;
 import game.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
@@ -40,6 +40,7 @@ public class Game extends Canvas implements Runnable {
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+	private TileCoordinate playerSpawn = new TileCoordinate(8, 8);
 
 	private Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
@@ -49,7 +50,6 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = new Level("/textures/levels/map1.png");
-		TileCoordinate playerSpawn = new TileCoordinate(8, 8);
 		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
 		level.add(player);
 
@@ -121,14 +121,17 @@ public class Game extends Canvas implements Runnable {
 		key.update();
 		level.update();
 
-		 if (level.enemyEntities.size() == 0) {
-			 level.loadLevel("/textures/levels/map3.png");
-		 //level = new SpawnLevel("/textures/levels/map2.png");
-		 TileCoordinate playerSpawn = new TileCoordinate(8, 8);
-		 player.setXY(8,8);
-		 // = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
-		 //level.add(player);
-		 }
+		if (level.enemyEntities.size() == 0) {
+			level.loadLevel("/textures/levels/map3.png");
+			level.removeParticles();
+			// level = new SpawnLevel("/textures/levels/map2.png");
+			playerSpawn = new TileCoordinate(8, 8);
+			player.estado = new EstadoNormal();
+
+			player.setXY(8, 8);
+			// = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
+			// level.add(player);
+		}
 	}
 
 	public void render() {
@@ -162,8 +165,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static Game getGame() {
-		if (game1 != null)
-			return game1;
+		if (game1 != null) return game1;
 		else {
 			return new Game();
 		}
@@ -179,14 +181,14 @@ public class Game extends Canvas implements Runnable {
 		game1.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game1.frame.setLocationRelativeTo(null);
 		game1.frame.setVisible(true);
-//		Game game = new Game();
-//		game.frame.setResizable(false);
-//		game.frame.setTitle(title);
-//		game.frame.add(game);
-//		game.frame.pack();
-//		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		game.frame.setLocationRelativeTo(null);
-//		game.frame.setVisible(true);
+		// Game game = new Game();
+		// game.frame.setResizable(false);
+		// game.frame.setTitle(title);
+		// game.frame.add(game);
+		// game.frame.pack();
+		// game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// game.frame.setLocationRelativeTo(null);
+		// game.frame.setVisible(true);
 
 		game1.start();
 

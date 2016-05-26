@@ -1,5 +1,8 @@
 package game.entity.particle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.entity.Entity;
 import game.graphics.Screen;
 import game.graphics.Sprite;
@@ -12,6 +15,7 @@ public class Particle extends Entity {
 	private int life;
 	private int time = 0;
 	private int dir = 0;
+	private List<Entity> enemyEntities = new ArrayList<Entity>();
 
 	protected double xx, yy, zz;
 	protected double xa, ya, za;
@@ -86,14 +90,22 @@ public class Particle extends Entity {
 			if (c / 2 == 0) iy = (int) Math.floor(yt);
 
 			if (level.getTile(ix, iy).solid()) solid = true;
-			if (level.getEntities(this, 50).size() > 0) {
+			
+			enemyEntities = level.getEntities(this, 50);
+			int esize = enemyEntities.size();
 
-				if(level.getEntitiesIndex(this, 10)[0]>=1){
-				level.enemyEntities.remove(level.getEntitiesIndex(this, 0)[1]);
-				System.out.println(level.getEntitiesIndex(this, 0)[1]);
-			}
+			if (esize > 0) {
+				for (int e = 0; e < esize; e++) {
+					System.out.println(enemyEntities.get(e));
+					level.removeEnemy(enemyEntities.get(e));
+				}
+				// if(level.getEntitiesIndex(this, 10).length>=1){
+				// level.enemyEntities.remove(level.getEntitiesIndex(this,
+				// 0)[1]);
+				// System.out.println(level.getEntitiesIndex(this, 0)[1]);
+				// }
 
-//				System.out.println(level.getEntities(this, 0).size());
+				// System.out.println(level.getEntities(this, 0).size());
 			}
 			if (level.getTile(ix, iy) == Tile.flower) {
 				level.removeTile(ix, iy);

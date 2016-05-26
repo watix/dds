@@ -24,6 +24,13 @@ public abstract class Projectile extends Entity {
 		this.x = x;
 		this.y = y;
 	}
+	public Projectile(double x, double y) {
+		xOrigin = x;
+		yOrigin = y;
+		angle = 0;
+		this.x = x;
+		this.y = y;
+	}
 
 	protected void move() {
 

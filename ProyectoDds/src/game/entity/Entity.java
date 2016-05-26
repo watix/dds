@@ -10,7 +10,7 @@ public abstract class Entity {
 	protected double x, y;
 	protected Sprite sprite;
 	private boolean removed = false;
-	protected Level level;
+	public Level level;
 	protected final Random random = new Random();
 
 	public Entity() {

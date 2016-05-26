@@ -1,14 +1,17 @@
 package game.entity.mob;
 
 import game.entity.Entity;
+import game.entity.mob.state.Estado;
+import game.entity.mob.state.EstadoNormal;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
 import game.graphics.Screen;
 
 public abstract class Mob extends Entity {
 
-	protected boolean moving = false;
+	//protected boolean moving = false;
 	protected boolean walking = false;
+	public Estado estado = (Estado) new EstadoNormal();
 
 	protected enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -64,18 +67,18 @@ public abstract class Mob extends Entity {
 
 	public abstract void render(Screen screen);
 
-	protected void shoot(double x, double y, double dir, int bombas) {
-		int nump = level.getProjectiles().size();
-		if (nump<bombas){
-		Projectile p = new WizzardProjectile(x, y, dir);
-		level.add(p);
-		}
-		nump++;
-		
-		
+//	protected void shoot(double x, double y, double dir, int bombas) {
+//		int nump = level.getProjectiles().size();
+//		if (nump<bombas){
+//		Projectile p = new WizzardProjectile(x, y, dir);
+//		level.add(p);
+//		}
+//		nump++;
+//	}
 
-	}
-
+	
+	
+	
 	private boolean collition(double xa, double ya) {
 		boolean solid = false;
 		for (int c = 0; c < 4; c++) {

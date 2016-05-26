@@ -1,6 +1,8 @@
 package game.entity.mob;
 
 import game.Game;
+import game.entity.mob.state.EstadoNormal;
+import game.entity.mob.state.EstadoSuper;
 import game.entity.projectile.Projectile;
 import game.entity.projectile.WizzardProjectile;
 import game.graphics.AnimatedSprite;
@@ -13,7 +15,7 @@ import game.input.Mouse;
 public class Player extends Mob {
 	private Keyboard input;
 	private Sprite sprite;
-	private int animated = 0;
+	//private int animated = 0;
 	private boolean walking = false;
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
 	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 32, 32, 3);
@@ -41,6 +43,8 @@ public class Player extends Mob {
 	}
 
 	public void update() {
+		if(level.enemyEntities.size()==1){ estado = new EstadoSuper();
+		}else estado =new EstadoNormal();
 		
 
 		if (walking) currentAnim.update();
@@ -85,11 +89,8 @@ public class Player extends Mob {
 
 	private void updateShooting() {
 		if (Mouse.getB() == 1 && fireRate <= 0) {
-			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
-			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
-			double dir = Math.atan2(dy, dx);
-			System.out.println(bombas);
-			shoot(x, y, dir,bombas);
+			
+			estado.shoot(x, y, this);
 			fireRate = WizzardProjectile.FIRE_RATE;
 		}
 	}

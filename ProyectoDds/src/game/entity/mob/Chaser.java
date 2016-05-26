@@ -28,7 +28,6 @@ public class Chaser extends Mob {
 		xa = 0;
 		ya = 0;
 		List<Player> players = level.getPlayers(this, 10);
-		System.out.println(players.size());
 		if (players.size() > 0) {
 			Player player = players.get(0);
 			if (x < player.getX()) xa += speed;
@@ -47,7 +46,6 @@ public class Chaser extends Mob {
 	}
 
 	public void update() {
-		System.out.println("chaser moving");
 		move();
 		if (walking) currentAnim.update();
 		else

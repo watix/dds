@@ -1,6 +1,8 @@
 package game.level;
 
 import game.entity.Entity;
+import game.entity.factory.EntityFactory;
+import game.entity.factory.EntityFactoryMethod;
 import game.entity.mob.Dummy;
 import game.entity.mob.Player;
 import game.entity.particle.Particle;
@@ -30,6 +32,8 @@ public class Level {
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public List<Particle> particles = new ArrayList<Particle>();
 	private List<Player> players = new ArrayList<Player>();
+	
+	private EntityFactoryMethod factory = new EntityFactory();
 
 	public Level(int width, int height) {
 		this.height = height;
@@ -236,7 +240,7 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_water) return Tile.water;
 		if (tiles[x + y * width] == Tile.col_dummy) {
 			removeTile(x, y);
-			add(new Dummy(9, 6));
+			add(factory.crearEntity(x, y, 0));
 			return Tile.voidTile;
 		}//aplicar factory
 		
@@ -253,7 +257,7 @@ public class Level {
 			int h = height = image.getHeight();
 			tiles = new int[w * h];
 			image.getRGB(0, 0, w, h, tiles, 0, w);
-			tiles = this.tiles;
+			//tiles = this.tiles;
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");

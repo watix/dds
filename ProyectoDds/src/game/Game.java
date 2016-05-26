@@ -122,7 +122,7 @@ public class Game extends Canvas implements Runnable {
 		level.update();
 
 		 if (level.enemyEntities.size() == 0) {
-			 level.loadLevel("/textures/levels/map2.png");
+			 level.loadLevel("/textures/levels/map3.png");
 		 //level = new SpawnLevel("/textures/levels/map2.png");
 		 TileCoordinate playerSpawn = new TileCoordinate(8, 8);
 		 player.setXY(8,8);

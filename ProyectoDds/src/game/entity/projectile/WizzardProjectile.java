@@ -13,7 +13,7 @@ public class WizzardProjectile extends Projectile {
 		super(x, y, dir);
 		range = random.nextInt(100) + 50;
 		speed = 2;
-		damage = 20;
+		//damage = 20;
 		sprite = Sprite.projectile;
 
 		nx = speed * Math.cos(angle);

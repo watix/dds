@@ -20,6 +20,7 @@ public class Player extends Mob {
 	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
 	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
 	private AnimatedSprite currentAnim = down;
+	public int bombas = 4;
 
 	private double fireRate =0;
 
@@ -87,7 +88,8 @@ public class Player extends Mob {
 			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
-			shoot(x, y, dir);
+			System.out.println(bombas);
+			shoot(x, y, dir,bombas);
 			fireRate = WizzardProjectile.FIRE_RATE;
 		}
 	}

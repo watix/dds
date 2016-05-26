@@ -64,9 +64,9 @@ public abstract class Mob extends Entity {
 
 	public abstract void render(Screen screen);
 
-	protected void shoot(double x, double y, double dir) {
+	protected void shoot(double x, double y, double dir, int bombas) {
 		int nump = level.getProjectiles().size();
-		if (nump<4){
+		if (nump<bombas){
 		Projectile p = new WizzardProjectile(x, y, dir);
 		level.add(p);
 		}

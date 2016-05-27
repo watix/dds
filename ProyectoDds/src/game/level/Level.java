@@ -31,8 +31,8 @@ public class Level {
 	public List<Entity> entities = new ArrayList<Entity>();
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public List<Particle> particles = new ArrayList<Particle>();
-	private List<Player> players = new ArrayList<Player>();
-	
+	public List<Player> players = new ArrayList<Player>();
+
 	private EntityFactoryMethod factory = new EntityFactory();
 
 	public Level(int width, int height) {
@@ -56,9 +56,9 @@ public class Level {
 		tile_size = 16;
 	}
 
-//	protected void loadLevel(String path) {
-//		
-//	}
+	// protected void loadLevel(String path) {
+	//
+	// }
 
 	public void update() {
 
@@ -86,7 +86,8 @@ public class Level {
 			if (entities.get(i).isRemoved()) entities.remove(i);
 		}
 		for (int i = 0; i < enemyEntities.size(); i++) {
-			if (enemyEntities.get(i).isRemoved()) {enemyEntities.remove(i);
+			if (enemyEntities.get(i).isRemoved()) {
+				enemyEntities.remove(i);
 			}
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
@@ -107,7 +108,7 @@ public class Level {
 
 	private void time() {
 
-	}//refactorizar
+	}// refactorizar
 
 	public boolean tileCollition(int x, int y, int size, int xOffset, int yOffset) {
 		boolean solid = false;
@@ -193,28 +194,38 @@ public class Level {
 			double distance = Math.sqrt((dx * dx) + (dy * dy));
 			if (distance <= radius) result.add(entity);
 		}
-		return result;
-
-	}
-
-	public int[] getEntitiesIndex(Entity e, int radius) {
-		int[] result = new int[entities.size() + 1];
-		int ex = (int) e.getX();
-		int ey = (int) e.getY();
-
-		for (int i = 0; i < entities.size(); i++) {
-			result[0] = 1;
-			Entity entity = entities.get(i);
-			int x = (int) entity.getX();
-			int y = (int) entity.getY();
+		for (int i = 0; i < players.size(); i++) {
+			Entity entityP = players.get(i);
+			int x = (int) entityP.getX();
+			int y = (int) entityP.getY();
 			int dx = Math.abs(x - ex);
 			int dy = Math.abs(y - ey);
 			double distance = Math.sqrt((dx * dx) + (dy * dy));
-			if (distance <= radius) result[i + 1] = i;
+			if (distance <= radius) result.add(entityP);
 		}
+
 		return result;
 
 	}
+
+	// public int[] getEntitiesIndex(Entity e, int radius) {
+	// int[] result = new int[entities.size() + 1];
+	// int ex = (int) e.getX();
+	// int ey = (int) e.getY();
+	//
+	// for (int i = 0; i < entities.size(); i++) {
+	// result[0] = 1;
+	// Entity entity = entities.get(i);
+	// int x = (int) entity.getX();
+	// int y = (int) entity.getY();
+	// int dx = Math.abs(x - ex);
+	// int dy = Math.abs(y - ey);
+	// double distance = Math.sqrt((dx * dx) + (dy * dy));
+	// if (distance <= radius) result[i + 1] = i;
+	// }
+	// return result;
+	//
+	// }
 
 	public List<Player> getPlayers(Entity e, int radius) {
 		List<Player> result = new ArrayList<Player>();
@@ -239,19 +250,22 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_flower) return Tile.flower;
 		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
 		if (tiles[x + y * width] == Tile.spawn) return Tile.voidTile;
-		if (tiles[x + y * width] == Tile.col_water) return Tile.water;
+		if (tiles[x + y * width] == Tile.col_water) {
+			removeTile(x, y);
+			add(factory.crearEntity(x, y, 1));
+			return Tile.grass;
+		}
 		if (tiles[x + y * width] == Tile.col_dummy) {
 			removeTile(x, y);
 			add(factory.crearEntity(x, y, 0));
-			return Tile.voidTile;
-		}//aplicar factory
-		
+			return Tile.grass;
+		} 
 		// if (tiles[x+y*width]== Tile.col_dummy&& entities.size()<2) add(new
 		// Dummy(x, y)); mirar solo spawnear uno!
 
 		return Tile.grass;
 	}
-	
+
 	public void loadLevel(String path) {
 		try {
 			BufferedImage image = ImageIO.read(SpawnLevel.class.getResource(path));
@@ -259,22 +273,22 @@ public class Level {
 			int h = height = image.getHeight();
 			tiles = new int[w * h];
 			image.getRGB(0, 0, w, h, tiles, 0, w);
-			//tiles = this.tiles;
+			// tiles = this.tiles;
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");
 		}
-//		add(new Dummy(9, 6)); // añade un dummy al nivel
-//		add(new Chaser(4, 3));
-//		add(new Chaser(8, 3));
+		// add(new Dummy(9, 6)); // añade un dummy al nivel
+		// add(new Chaser(4, 3));
+		// add(new Chaser(8, 3));
 
 	}
-	
-	public void removeParticles(){
-		for(int i = 0; i < particles.size();i++){
+
+	public void removeParticles() {
+		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).remove();
 		}
-		for(int i = 0; i < projectiles.size();i++){
+		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).remove();
 		}
 	}
@@ -286,10 +300,11 @@ public class Level {
 	}
 
 	public void removeEnemy(Entity entity) {
-		for (Entity e : enemyEntities){
+		for (Entity e : enemyEntities) {
 			if (entity.equals(e)) e.remove();
-			
+			if (entity.equals(players.get(0))) players.get(0).remove();
+
 		}
-		
+
 	}
 }

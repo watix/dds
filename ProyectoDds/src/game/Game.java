@@ -131,9 +131,9 @@ public class Game extends Canvas implements Runnable {
 			player.estado = new EstadoNormal();
 
 			player.setXY(8, 8);
-
-			// = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
-			// level.add(player);
+		}
+		if(level.players.size()==0){
+			System.out.println("has perdido");
 		}
 	}
 

@@ -91,7 +91,7 @@ public class Particle extends Entity {
 
 			if (level.getTile(ix, iy).solid()) solid = true;
 			
-			enemyEntities = level.getEntities(this, 50);
+			enemyEntities = level.getEntities(this, 10);
 			int esize = enemyEntities.size();
 
 			if (esize > 0) {

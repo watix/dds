@@ -1,16 +1,5 @@
 package game.level;
 
-import game.entity.Entity;
-import game.entity.factory.EntityFactory;
-import game.entity.factory.EntityFactoryMethod;
-import game.entity.mob.Dummy;
-import game.entity.mob.Player;
-import game.entity.particle.Particle;
-import game.entity.projectile.Projectile;
-import game.entity.spawner.ParticleSpawner;
-import game.graphics.Screen;
-import game.level.tile.Tile;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,11 +7,21 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import game.entity.Entity;
+import game.entity.factory.EntityFactory;
+import game.entity.factory.EntityFactoryMethod;
+import game.entity.mob.Player;
+import game.entity.particle.Particle;
+import game.entity.projectile.Projectile;
+import game.entity.spawner.ParticleSpawner;
+import game.graphics.Screen;
+import game.level.tile.Tile;
+
 public class Level {
 
 	protected int width, height;
 	protected int[] tilesInt;
-	protected int[] tiles;
+	public int[] tiles;
 	protected int tile_size;
 	public Screen screen;
 	public boolean render = false;
@@ -35,26 +34,26 @@ public class Level {
 
 	private EntityFactoryMethod factory = new EntityFactory();
 
-	public Level(int width, int height) {
+	/*public Level(int width, int height) {
 		this.height = height;
 		this.width = width;
 		tilesInt = new int[width * height];
-		generateLevel();
-	}
+		//generateLevel();
+	}*/
 
 	public Level(String path) {
 		loadLevel(path);
-		generateLevel();
+		tile_size = 16;
+		//generateLevel();
 	}
 
-	protected void generateLevel() {
+	/*protected void generateLevel() {
 		for (int y = 0; y < 64; y++) {
 			for (int x = 0; x < 64; x++) {
 				// getTile(x, y);
 			}
 		}
-		tile_size = 16;
-	}
+	}*/
 
 	// protected void loadLevel(String path) {
 	//
@@ -66,9 +65,7 @@ public class Level {
 			entities.get(i).update();
 		}
 		for (int i = 0; i < enemyEntities.size(); i++) {
-			enemyEntities.get(i).update();
-			System.out.println(enemyEntities.size());
-		}
+			enemyEntities.get(i).update();		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
@@ -184,6 +181,7 @@ public class Level {
 		List<Entity> result = new ArrayList<Entity>();
 		int ex = (int) e.getX();
 		int ey = (int) e.getY();
+		boolean hit = false;
 
 		for (int i = 0; i < enemyEntities.size(); i++) {
 			Entity entity = enemyEntities.get(i);

@@ -12,16 +12,16 @@ public class Dummy extends Mob {
 	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.dummy_left, 32, 32, 3);
 	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.dummy_right, 32, 32, 3);
 	private AnimatedSprite currentAnim = down;
-	
+
 	private int time = 0;
 	private int xa = 0;
 	private int ya = 0;
 
-	private enum Direction {
-		UP, DOWN, LEFT, RIGHT
-	}
+	// private enum Direction {
+	// UP, DOWN, LEFT, RIGHT
+	// }
 
-	private Direction dir;
+	// private Direction dir;
 
 	public Dummy(int x, int y) {
 		this.x = x << 4; // x*16
@@ -31,33 +31,36 @@ public class Dummy extends Mob {
 
 	public void update() {
 		time++;
-		if (time % (random.nextInt(50)+30) == 0) {// cada segundo entra...y cambia de direccion
-			xa = random.nextInt(3) -1;
-			ya = random.nextInt(3) -1;
-			if(random.nextInt(4) == 0){
-				xa=0;
-				ya=0;
+		if (time % (random.nextInt(50) + 1) == 0) {// cada segundo entra...y
+													// cambia de direccion
+			if (time % (random.nextInt(50) + 1) < 25) xa = random.nextInt(3) - 1;
+			else if (time % (random.nextInt(50) + 1) > 24) ya = random.nextInt(3) - 1;
+			if (random.nextInt(4) == 0) {
+				xa = 0;
+				ya = 0;
 			}
 		}
 
-		if (walking)
-			currentAnim.update();
-		else
-			currentAnim.setFrame(0);
+		if (walking) currentAnim.update();
+		else currentAnim.setFrame(0);
+		System.out.println(this.getX()/16+" "+this.getY()/16);
 		if (ya < 0) {
 			currentAnim = up;
 			dir = Direction.UP;
 		} else if (ya > 0) {
 			currentAnim = down;
 			dir = Direction.DOWN;
-		} else if (xa < 0) {
+		}
+		if (xa < 0) {
 			currentAnim = left;
 			dir = Direction.LEFT;
 		} else if (xa > 0) {
 			currentAnim = right;
 			dir = Direction.RIGHT;
-		}else{currentAnim = down;
-		dir = Direction.DOWN;}
+		} else {
+			currentAnim = down;
+			dir = Direction.DOWN;
+		}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
@@ -69,7 +72,7 @@ public class Dummy extends Mob {
 
 	public void render(Screen screen) {
 		sprite = currentAnim.getSprites();
-		screen.renderMob((int)x, (int)y, sprite, 0);
+		screen.renderMob((int) x, (int) y, sprite, 0);
 
 	}
 

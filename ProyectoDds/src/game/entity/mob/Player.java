@@ -1,6 +1,6 @@
 package game.entity.mob;
 
-import game.Game;
+import game.entity.mob.state.Estado;
 import game.entity.mob.state.EstadoNormal;
 import game.entity.mob.state.EstadoSuper;
 import game.entity.projectile.Projectile;
@@ -23,6 +23,8 @@ public class Player extends Mob {
 	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
 	private AnimatedSprite currentAnim = down;
 	public int bombas = 4;
+	public Estado estado = (Estado) new EstadoNormal();
+
 
 	private double fireRate =0;
 

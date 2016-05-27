@@ -5,13 +5,13 @@ import game.level.Level;
 
 public class ParticleSpawner extends Spawner{
 
-	private int life;
+	//private int life;
 
 	public ParticleSpawner(int x, int y, int life, int amount, Level level) {		
 		super(x, y, Type.PARTICLE, amount, level);
-		this.life = life;
+		//this.life = life;
 		for (int i = 0; i < amount; i++) {
-				level.add(new Particle(x, y, life,i%5));
+				level.add(new Particle(x, y+7, life,i%5));
 			}
 			
 		

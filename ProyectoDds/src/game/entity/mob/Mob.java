@@ -9,7 +9,6 @@ public abstract class Mob extends Entity {
 
 	//protected boolean moving = false;
 	protected boolean walking = false;
-	public Estado estado = (Estado) new EstadoNormal();
 
 	protected enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -80,8 +79,8 @@ public abstract class Mob extends Entity {
 	private boolean collition(double xa, double ya) {
 		boolean solid = false;
 		for (int c = 0; c < 4; c++) {
-			double xt = ((x + xa) - c % 2 * 16) / 16+0.7;
-			double yt = ((y + ya) - c / 2 * 16) / 16+0.7;
+			double xt = ((x + xa) - c % 2 * 15) / 16+0.5;
+			double yt = ((y + ya) - c / 2 * 15) / 16+0.7;
 			int ix = (int) Math.ceil(xt)-1;
 			int iy = (int) Math.ceil(yt);
 			if (c % 2 == 0) ix = (int) Math.floor(xt);

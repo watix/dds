@@ -17,8 +17,8 @@ public class Particle extends Entity {
 	private int dir = 0;
 	private List<Entity> enemyEntities = new ArrayList<Entity>();
 
-	protected double xx, yy, zz;
-	protected double xa, ya, za;
+	protected double xx, yy;// zz;
+	protected double xa, ya;// za;
 
 	public Particle(int x, int y, int life) {
 		this.x = x;
@@ -31,7 +31,7 @@ public class Particle extends Entity {
 
 		this.xa = random.nextGaussian();
 		this.ya = random.nextGaussian();
-		this.zz = random.nextFloat() + 2.0;
+		//this.zz = random.nextFloat() + 2.0;
 	}
 
 	public Particle(int x, int y, int life, int d) {
@@ -46,36 +46,29 @@ public class Particle extends Entity {
 
 		this.xa = random.nextGaussian();
 		this.ya = random.nextGaussian();
-		this.zz = random.nextFloat() + 2.0;
+		// this.zz = random.nextFloat() + 2.0;
 	}
 
 	public void update() {
 		time++;
 		if (time >= 7400) time = 0;
 		if (time > life) remove();
-		this.za -= 0.1;
-		if (zz < 0) {
-			zz = 0;
-			za *= -0.5;
-			xa *= 0.4;
-			ya *= 0.4;
-		}
-		move((xx + xa), (yy + ya) + (zz + za));
+		//this.za -= 0.1;
+		/*
+		 * if (zz < 0) { zz = 0; za *= -0.5; xa *= 0.4; ya *= 0.4; }
+		 */
+		move((xx), (yy));
 	}
 
 	private void move(double x, double y) {
 
 		if (collition(x, y)) {
-			this.xa *= -0.5;
-			this.ya *= -0.5;
-			this.za *= -0.5;
-
+			this.remove();
 		}
 		if (dir == 0) this.xx += xa;
 		if (dir == 1) this.yy += ya;
 		if (dir == 2) this.yy += ya;
 		if (dir == 3) this.yy += ya;
-		this.zz += za;
 	}
 
 	public boolean collition(double x, double y) {
@@ -90,8 +83,8 @@ public class Particle extends Entity {
 			if (c / 2 == 0) iy = (int) Math.floor(yt);
 
 			if (level.getTile(ix, iy).solid()) solid = true;
-			
-			enemyEntities = level.getEntities(this, 10);
+
+			enemyEntities = level.getEntities(this, 22);
 			int esize = enemyEntities.size();
 
 			if (esize > 0) {
@@ -117,6 +110,6 @@ public class Particle extends Entity {
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite((int) xx - 1, (int) yy - (int) zz - 1, sprite, true);
+		screen.renderSprite((int) xx - 1, (int) yy , sprite, true);
 	}
 }

@@ -13,6 +13,7 @@ public class Sprite {
 	public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 	public static Sprite water = new Sprite(16, 5, 0, SpriteSheet.tiles);
+	public static Sprite breakable = new Sprite(16, 3, 0, SpriteSheet.tiles);
 	
 	public static Sprite projectile = new Sprite(16, 0, 1, SpriteSheet.tiles);
 	public static Sprite bomba = new Sprite(16, 1, 1, SpriteSheet.tiles);

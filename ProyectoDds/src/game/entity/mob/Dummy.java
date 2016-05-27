@@ -43,7 +43,6 @@ public class Dummy extends Mob {
 
 		if (walking) currentAnim.update();
 		else currentAnim.setFrame(0);
-		System.out.println(this.getX()/16+" "+this.getY()/16);
 		if (ya < 0) {
 			currentAnim = up;
 			dir = Direction.UP;

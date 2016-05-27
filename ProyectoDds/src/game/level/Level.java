@@ -247,8 +247,8 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_rock) return Tile.rock;
 		if (tiles[x + y * width] == Tile.col_flower) return Tile.flower;
 		if (tiles[x + y * width] == Tile.col_grass) return Tile.grass;
-		if (tiles[x + y * width] == Tile.spawn) return Tile.voidTile;
-		if (tiles[x + y * width] == Tile.col_water) {
+		if (tiles[x + y * width] == Tile.col_break) return Tile.breakable;
+		if (tiles[x + y * width] == Tile.col_chaser) {
 			removeTile(x, y);
 			add(factory.crearEntity(x, y, 1));
 			return Tile.grass;

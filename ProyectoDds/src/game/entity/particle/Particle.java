@@ -100,7 +100,7 @@ public class Particle extends Entity {
 
 				// System.out.println(level.getEntities(this, 0).size());
 			}
-			if (level.getTile(ix, iy) == Tile.flower) {
+			if (level.getTile(ix, iy) == Tile.breakable) {
 				level.removeTile(ix, iy);
 				level.render = true;
 			}

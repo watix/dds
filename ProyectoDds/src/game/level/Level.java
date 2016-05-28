@@ -17,47 +17,41 @@ import game.entity.spawner.ParticleSpawner;
 import game.graphics.Screen;
 import game.level.tile.Tile;
 
+/**
+ * @author Joan Batiste Canet Collado Jordi Vicedo
+ * 
+ *         Clase Level la encargada de inicializar y de almacenar los elementos del nivel.
+ */
 public class Level {
 
 	protected int width, height;
-	protected int[] tilesInt;
 	public int[] tiles;
 	protected int tile_size;
 	public Screen screen;
 	public boolean render = false;
 
+	/**
+	 * Listas de almacenamiento de los elementos del nivel
+	 */
 	public List<Entity> enemyEntities = new ArrayList<Entity>();
 	public List<Entity> entities = new ArrayList<Entity>();
 	public List<Projectile> projectiles = new ArrayList<Projectile>();
 	public List<Particle> particles = new ArrayList<Particle>();
 	public List<Player> players = new ArrayList<Player>();
 
+	/**
+	 * Fábrica de enemigos
+	 */
 	private EntityFactoryMethod factory = new EntityFactory();
 
-	/*public Level(int width, int height) {
-		this.height = height;
-		this.width = width;
-		tilesInt = new int[width * height];
-		//generateLevel();
-	}*/
-
+	/**
+	 * @param path
+	 *            ruta del archivo de imagen que contiene el mapa de pixeles del nivel
+	 */
 	public Level(String path) {
 		loadLevel(path);
 		tile_size = 16;
-		//generateLevel();
 	}
-
-	/*protected void generateLevel() {
-		for (int y = 0; y < 64; y++) {
-			for (int x = 0; x < 64; x++) {
-				// getTile(x, y);
-			}
-		}
-	}*/
-
-	// protected void loadLevel(String path) {
-	//
-	// }
 
 	public void update() {
 
@@ -65,7 +59,8 @@ public class Level {
 			entities.get(i).update();
 		}
 		for (int i = 0; i < enemyEntities.size(); i++) {
-			enemyEntities.get(i).update();		}
+			enemyEntities.get(i).update();
+		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
@@ -102,10 +97,6 @@ public class Level {
 	public List<Projectile> getProjectiles() {
 		return projectiles;
 	}
-
-	private void time() {
-
-	}// refactorizar
 
 	public boolean tileCollition(int x, int y, int size, int xOffset, int yOffset) {
 		boolean solid = false;
@@ -162,26 +153,14 @@ public class Level {
 		}
 	}
 
-	public List<Player> getPlayers() {
-		return players;
-	}
+	/*
+	 * metodo universal para obtener todas las entity que están en un radiodado.
+	 */
 
-	public Player getPlayerAt(int index) {
-
-		return players.get(index);
-	}
-
-	public Player getPlayerClient() {
-		return players.get(0);
-	}
-
-	// metodo universal para obtener todas las entity que están en un radio
-	// dado.
 	public List<Entity> getEntities(Entity e, int radius) {
 		List<Entity> result = new ArrayList<Entity>();
 		int ex = (int) e.getX();
 		int ey = (int) e.getY();
-		boolean hit = false;
 
 		for (int i = 0; i < enemyEntities.size(); i++) {
 			Entity entity = enemyEntities.get(i);
@@ -205,25 +184,6 @@ public class Level {
 		return result;
 
 	}
-
-	// public int[] getEntitiesIndex(Entity e, int radius) {
-	// int[] result = new int[entities.size() + 1];
-	// int ex = (int) e.getX();
-	// int ey = (int) e.getY();
-	//
-	// for (int i = 0; i < entities.size(); i++) {
-	// result[0] = 1;
-	// Entity entity = entities.get(i);
-	// int x = (int) entity.getX();
-	// int y = (int) entity.getY();
-	// int dx = Math.abs(x - ex);
-	// int dy = Math.abs(y - ey);
-	// double distance = Math.sqrt((dx * dx) + (dy * dy));
-	// if (distance <= radius) result[i + 1] = i;
-	// }
-	// return result;
-	//
-	// }
 
 	public List<Player> getPlayers(Entity e, int radius) {
 		List<Player> result = new ArrayList<Player>();
@@ -257,7 +217,7 @@ public class Level {
 			removeTile(x, y);
 			add(factory.crearEntity(x, y, 0));
 			return Tile.grass;
-		} 
+		}
 		// if (tiles[x+y*width]== Tile.col_dummy&& entities.size()<2) add(new
 		// Dummy(x, y)); mirar solo spawnear uno!
 
@@ -266,7 +226,7 @@ public class Level {
 
 	public void loadLevel(String path) {
 		try {
-			BufferedImage image = ImageIO.read(SpawnLevel.class.getResource(path));
+			BufferedImage image = ImageIO.read(Level.class.getResource(path));
 			int w = width = image.getWidth();
 			int h = height = image.getHeight();
 			tiles = new int[w * h];
@@ -276,10 +236,6 @@ public class Level {
 			e.printStackTrace();
 			System.out.println("Could not find level path!!!!");
 		}
-		// add(new Dummy(9, 6)); // añade un dummy al nivel
-		// add(new Chaser(4, 3));
-		// add(new Chaser(8, 3));
-
 	}
 
 	public void removeParticles() {

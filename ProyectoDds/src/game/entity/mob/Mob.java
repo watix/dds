@@ -1,8 +1,6 @@
 package game.entity.mob;
 
 import game.entity.Entity;
-import game.entity.mob.state.Estado;
-import game.entity.mob.state.EstadoNormal;
 import game.graphics.Screen;
 
 public abstract class Mob extends Entity {

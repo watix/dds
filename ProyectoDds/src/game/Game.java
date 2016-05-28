@@ -19,19 +19,28 @@ import game.input.Mouse;
 import game.level.Level;
 import game.level.TileCoordinate;
 
+/**
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
+ * 
+ *         Clase principal en la que se inicializan los elementos necesarios para el correcto funcionamiento
+ *
+ */
 public class Game extends Canvas implements Runnable {
+
 	private static final long serialVersionUID = 1L;
 
+	private static Game game;
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;
 	private static int scale = 3;
 	public static String title = "AWesoME LEVEL ";
-	private static Game game;
 	private static int stage = 1;
+	private String path = "/textures/levels/map" + stage + ".png";
 
 	private Thread thread;
 	private boolean running = false;
 	private JFrame frame;
+
 	private Keyboard key;
 	private Player player;
 
@@ -43,6 +52,10 @@ public class Game extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private TileCoordinate playerSpawn = new TileCoordinate(8, 8);
 
+	/**
+	 * Método constructor de la clase principal Game. Se inicializan los diferentes elementos. Se carga el
+	 * mapa de juego con level y se crea el jugador principal
+	 */
 	private Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
@@ -50,7 +63,7 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new Level("/textures/levels/map1.png");
+		level = new Level(path);
 		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
 		level.add(player);
 
@@ -59,22 +72,34 @@ public class Game extends Canvas implements Runnable {
 		Mouse mouse = new Mouse();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-	}
+	} // Fin del constructor Game
 
+	/**
+	 * @return El ancho de la pantalla de juego
+	 */
 	public static int getWindowWidth() {
 		return width * scale;
-	}
+	}// Fin del método getWindowWidth
 
+	/**
+	 * @return El alto de la pantalla de juego
+	 */
 	public static int getWindowHeight() {
 		return height * scale;
-	}
+	}// Fin del método getWindowHeight
 
+	/**
+	 * Inicializa el hilo de ejecución para el motor del juego
+	 */
 	public synchronized void start() {
 		thread = new Thread(this, "Display");
 		thread.start();
 		running = true;
 	}
 
+	/**
+	 * Para la ejecución de la aplicación
+	 */
 	public synchronized void stop() {
 		running = false;
 		try {
@@ -82,8 +107,11 @@ public class Game extends Canvas implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
+	}// Fin del método stop
 
+	/*
+	 * Lógica de ejecución de la actualización y renderización de los elementos de la aplicación
+	 */
 	public void run() {
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
@@ -107,39 +135,42 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				frame.setTitle(title +stage+ "  |  " + updates + " ups, " + frames + " fps");
+				frame.setTitle(title + stage + "  |  " + updates + " ups, " + frames + " fps");
 				updates = 0;
 				frames = 0;
 			}
-
 		}
 		stop();
-	}
+	}// Fin del método run
 
-	int x = 0, y = 0;
-
+	/**
+	 * Método que actualiza los elementos del juego y las entradas como el teclado
+	 */
 	public void update() {
 		key.update();
 		level.update();
 
 		if (level.enemyEntities.size() == 0) {
 			stage++;
-			level.loadLevel("/textures/levels/map3.png");
+			path = "/textures/levels/map" + stage + ".png";
+			level.loadLevel(path);
 			level.removeParticles();
-			// level = new SpawnLevel("/textures/levels/map2.png");
 			playerSpawn = new TileCoordinate(8, 8);
 			player.estado = new EstadoNormal();
 
 			player.setXY(8, 8);
-		}
-		if(level.players.size()==0){
-			System.out.println("has perdido");
-		}
-	}
 
+		}
+		if (level.players.size() == 0) {
+			stop();
+		}
+	}//// Fin del método update
+
+	/**
+	 * Método que renderiza los elementos gráficos del juego
+	 */
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
-		// singleton
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
@@ -150,7 +181,7 @@ public class Game extends Canvas implements Runnable {
 		// offset
 		double xScroll = player.getX() - screen.width / 2;
 		double yScroll = player.getY() - screen.height / 2;
-		//
+
 		level.render((int) xScroll, (int) yScroll, screen);
 		// screen.renderSheet(40, 40, SpriteSheet.player_down, false); muestra
 		// el sprite de la animacion
@@ -165,8 +196,13 @@ public class Game extends Canvas implements Runnable {
 		g.setFont(new Font("Verdana", 0, 50));
 		g.dispose();
 		bs.show();
-	}
+	}// Fin del método render
 
+	/**
+	 * Método SINGLETON para mantener una instancia única de la clase Game
+	 * 
+	 * @return la instancia única de Game.
+	 */
 	public static Game getGame() {
 		if (game != null) return game;
 		else {
@@ -174,6 +210,12 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 * Método principal que configura la pantalla principal *
+	 * 
+	 * @param args
+	 *            parámetros estándar
+	 */
 	public static void main(String[] args) {
 
 		game = Game.getGame();
@@ -187,5 +229,5 @@ public class Game extends Canvas implements Runnable {
 
 		game.start();
 
-	}
-}
+	} // Fin del método main
+} // Fin de la clase Game

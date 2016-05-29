@@ -5,6 +5,11 @@ import game.graphics.Screen;
 import game.graphics.Sprite;
 import game.graphics.SpriteSheet;
 
+/**
+ * Clase que implementa la lógica para el Mob que será el enemigo que se mueve sin sentido
+ * 
+ * @author Joan Batiste Canet Collado y Jordi Vicedo *
+ */
 public class Dummy extends Mob {
 
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.dummy_down, 32, 32, 3);
@@ -17,22 +22,26 @@ public class Dummy extends Mob {
 	private int xa = 0;
 	private int ya = 0;
 
-	// private enum Direction {
-	// UP, DOWN, LEFT, RIGHT
-	// }
-
-	// private Direction dir;
-
+	/**
+	 * Constructor de Dummy que será el enemigo que se mueva por el mapa de manera errante
+	 * 
+	 * @param x posición x del mapa donde va a posicionarse el Dummy
+	 * @param y posición y del mapa donde va a posicionarse el Dummy
+	 */
 	public Dummy(int x, int y) {
 		this.x = x << 4; // x*16
 		this.y = y << 4;
 		sprite = Sprite.dummy;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see game.entity.mob.Mob#update()
+	 */
 	public void update() {
 		time++;
-		if (time % (random.nextInt(50) + 1) == 0) {// cada segundo entra...y
-													// cambia de direccion
+		if (time % (random.nextInt(50) + 1) == 0) {
 			if (time % (random.nextInt(50) + 1) < 25) xa = random.nextInt(3) - 1;
 			else if (time % (random.nextInt(50) + 1) > 24) ya = random.nextInt(3) - 1;
 			if (random.nextInt(4) == 0) {
@@ -69,6 +78,9 @@ public class Dummy extends Mob {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see game.entity.mob.Mob#render(game.graphics.Screen)
+	 */
 	public void render(Screen screen) {
 		sprite = currentAnim.getSprites();
 		screen.renderMob((int) x, (int) y, sprite, 0);

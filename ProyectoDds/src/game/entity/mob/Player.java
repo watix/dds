@@ -12,10 +12,15 @@ import game.graphics.SpriteSheet;
 import game.input.Keyboard;
 import game.input.Mouse;
 
+/**
+ * Clase que implementa la lógica para el Mob que será el jugador principal
+ * 
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
+ *
+ */
 public class Player extends Mob {
 	private Keyboard input;
 	private Sprite sprite;
-	//private int animated = 0;
 	private boolean walking = false;
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
 	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 32, 32, 3);
@@ -25,16 +30,15 @@ public class Player extends Mob {
 	public int bombas = 4;
 	public Estado estado = (Estado) new EstadoNormal();
 
+	private double fireRate = 0;
 
-	private double fireRate =0;
-
-	public Player(Keyboard input) {
-
-		this.input = input;
-		sprite = Sprite.player_fordward;
-		currentAnim = down;
-	}
-
+	/**
+	 * Constructor que crea un player en una posición determinada y con un teclado para su movimiento
+	 * 
+	 * @param x posición x del mapa donde va a posicionarse el Player
+	 * @param y posición y del mapa donde va a posicionarse el Player
+	 * @param input teclado del que atender los eventos de pulsación de teclas
+	 */
 	public Player(int x, int y, Keyboard input) {
 		this.x = x;
 		this.y = y;
@@ -44,10 +48,15 @@ public class Player extends Mob {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see game.entity.mob.Mob#update()
+	 */
 	public void update() {
-		if(level.enemyEntities.size()==1){ estado = new EstadoSuper();
-		}else estado =new EstadoNormal();
-		
+		if (level.enemyEntities.size() == 1) {
+			estado = new EstadoSuper();
+		} else estado = new EstadoNormal();
 
 		if (walking) currentAnim.update();
 		else currentAnim.setFrame(0);
@@ -80,6 +89,9 @@ public class Player extends Mob {
 		updateShooting();
 	}
 
+	/**
+	 * Método para eliminar los proyectiles generados por el Player
+	 */
 	private void clear() {
 		for (int i = 0; i < level.getProjectiles().size(); i++) {
 			Projectile p = level.getProjectiles().get(i);
@@ -89,36 +101,28 @@ public class Player extends Mob {
 		}
 	}
 
+	/**
+	 * Método que actualiza la cción de disparar del Player
+	 */
 	private void updateShooting() {
 		if (Mouse.getB() == 1 && fireRate <= 0) {
-			
+
 			estado.shoot(x, y, this);
 			fireRate = WizzardProjectile.FIRE_RATE;
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see game.entity.mob.Mob#render(game.graphics.Screen)
+	 */
 	public void render(Screen screen) {
 
-		// int dir = this.dir;
 		int flip = 0;
-		/*
-		 * switch (dir) { no borrar, ejemplo de uso por si acaso case 0: sprite
-		 * = Sprite.player_fordward; if (walking) { if (animated < 30) { sprite
-		 * = Sprite.player_mov_f1; } else sprite = Sprite.player_mov_f2; }
-		 * break; case 1: case 3: sprite = Sprite.player_right; if (dir == 3)
-		 * flip = 1; if (walking) { if (animated < 30) { sprite =
-		 * Sprite.player_mov_r1; } else sprite = Sprite.player_mov_r2; } break;
-		 * case 2: sprite = Sprite.player_backward; if (walking) { if (animated
-		 * < 30) { sprite = Sprite.player_mov_b1; } else sprite =
-		 * Sprite.player_mov_b2; } break;
-		 * 
-		 * default: sprite = Sprite.player_fordward; break; }
-		 */
 		sprite = currentAnim.getSprites();
 		screen.renderMob((int) (x - 16), (int) (y - 16), sprite, flip);
 
 	}
-
-
 
 }

@@ -6,6 +6,12 @@ import game.graphics.AnimatedSprite;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 
+/**
+ * Clase que implementa la lógica para el Mob que será el enemigo que se mueve persiguiendo al Player si se
+ * acerca lo suficiente
+ * 
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
+ */
 public class Chaser extends Mob {
 
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.dummy_down, 32, 32, 3);
@@ -14,17 +20,25 @@ public class Chaser extends Mob {
 	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.dummy_right, 32, 32, 3);
 	private AnimatedSprite currentAnim = down;
 
-//	private int time = 0;
 	private double xa = 0;
 	private double ya = 0;
 	private double speed = 0.8;
 
+	/**
+	 * Constructor de Dummy que será el enemigo que persigua al jugador si entra denro de su radio de acción
+	 * 
+	 * @param x posición x del mapa donde va a posicionarse el Chaser
+	 * @param y posición y del mapa donde va a posicionarse el Chaser
+	 */
 	public Chaser(int x, int y) {
 		this.x = x << 4;
 		this.y = y << 4;
 		sprite = currentAnim.getSprites();
 	}
 
+	/**
+	 * Método que implementa el movimiento específico del Chaser
+	 */
 	private void move() {
 		xa = 0;
 		ya = 0;
@@ -46,6 +60,9 @@ public class Chaser extends Mob {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see game.entity.mob.Mob#update()
+	 */
 	public void update() {
 		move();
 		if (walking) currentAnim.update();
@@ -63,13 +80,16 @@ public class Chaser extends Mob {
 		} else if (xa > 0) {
 			currentAnim = right;
 			dir = Direction.RIGHT;
-		}else {
+		} else {
 			currentAnim = down;
 			dir = Direction.DOWN;
 		}
 
 	}
 
+	/* (non-Javadoc)
+	 * @see game.entity.mob.Mob#render(game.graphics.Screen)
+	 */
 	public void render(Screen screen) {
 		sprite = currentAnim.getSprites();
 		screen.renderMob((int) (x - 16), (int) (y - 16), this);

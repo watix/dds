@@ -103,7 +103,7 @@ public class Particle extends Entity {
 			if (esize > 0) {
 				for (int e = 0; e < esize; e++) {
 					System.out.println(enemyEntities.get(e));
-					level.removeEnemy(enemyEntities.get(e));
+					level.removeEntity(enemyEntities.get(e));
 				}
 
 			}

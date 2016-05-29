@@ -30,7 +30,6 @@ public class WizzardProjectile extends Projectile {
 		this.player = player;
 		range = random.nextInt(100) + 50;
 		speed = 2;
-		// damage = 20;
 		sprite = Sprite.projectile;
 
 		nx = speed * Math.cos(angle);

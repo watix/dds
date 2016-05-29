@@ -155,7 +155,7 @@ public class Game extends Canvas implements Runnable {
 			stage++;
 			path = "/textures/levels/map" + stage + ".png";
 			level.loadLevel(path);
-			level.removeParticles();
+			level.removeParticlesProyectiles();
 			playerSpawn = new TileCoordinate(8, 8);
 			player.estado = new EstadoNormal();
 

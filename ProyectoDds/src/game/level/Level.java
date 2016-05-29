@@ -257,12 +257,12 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_break) return Tile.breakable;
 		if (tiles[x + y * width] == Tile.col_chaser) {
 			removeTile(x, y);
-			add(factory.crearEntity(x, y, 1));
+			add(factory.crearEntity(x, y, Tile.col_chaser));
 			return Tile.grass;
 		}
 		if (tiles[x + y * width] == Tile.col_dummy) {
 			removeTile(x, y);
-			add(factory.crearEntity(x, y, 0));
+			add(factory.crearEntity(x, y, Tile.col_dummy));
 			return Tile.grass;
 		}
 		return Tile.grass;

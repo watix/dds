@@ -9,6 +9,8 @@ import game.graphics.Sprite;
 import game.level.tile.Tile;
 
 /**
+ * Clase que implementa la lógica de las partículas de las explosiones
+ * 
  * @author Joan Batiste Canet Collado y Jordi Vicedo
  *
  */
@@ -21,23 +23,17 @@ public class Particle extends Entity {
 	private int dir = 0;
 	private List<Entity> enemyEntities = new ArrayList<Entity>();
 
-	protected double xx, yy;// zz;
-	protected double xa, ya;// za;
+	protected double xx, yy;
+	protected double xa, ya;
 
-	public Particle(int x, int y, int life) {
-		this.x = x;
-		this.y = y;
-		this.xx = x;
-		this.yy = y;
-
-		this.life = life + (random.nextInt(20) - 10);
-		sprite = Sprite.particle_normal;
-
-		this.xa = random.nextGaussian();
-		this.ya = random.nextGaussian();
-		//this.zz = random.nextFloat() + 2.0;
-	}
-
+	/**
+	 * Constructor de Partículas en un punto determinado
+	 * 
+	 * @param x posición x inicial de la generación de la partícula
+	 * @param y posición y inicial de la generación de la partícula
+	 * @param life duración de la particula en pantalla
+	 * @param d dirección de movimiento de la partícula
+	 */
 	public Particle(int x, int y, int life, int d) {
 		this.x = x;
 		this.y = y;
@@ -50,20 +46,26 @@ public class Particle extends Entity {
 
 		this.xa = random.nextGaussian();
 		this.ya = random.nextGaussian();
-		// this.zz = random.nextFloat() + 2.0;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see game.entity.Entity#update()
+	 */
 	public void update() {
 		time++;
 		if (time >= 7400) time = 0;
 		if (time > life) remove();
-		//this.za -= 0.1;
-		/*
-		 * if (zz < 0) { zz = 0; za *= -0.5; xa *= 0.4; ya *= 0.4; }
-		 */
 		move((xx), (yy));
 	}
 
+	/**
+	 * Método que implementa la lógica de movimiento de las partículas
+	 * 
+	 * @param x posición x del mapa donde va a posicionarse la partícula
+	 * @param y posición y del mapa donde va a posicionarse la partícula
+	 */
 	private void move(double x, double y) {
 
 		if (collition(x, y)) {
@@ -75,6 +77,13 @@ public class Particle extends Entity {
 		if (dir == 3) this.yy += ya;
 	}
 
+	/**
+	 * Método que calcula si en la posición a la que se va a mover la partícula hay un Tile sólido
+	 * 
+	 * @param x posición horizontal del Tile
+	 * @param y posición vertical del Tile
+	 * @return true si el Tile que que está en la posición al a que se va a mover la partícula es sólido o no
+	 */
 	public boolean collition(double x, double y) {
 
 		boolean solid = false;
@@ -96,13 +105,7 @@ public class Particle extends Entity {
 					System.out.println(enemyEntities.get(e));
 					level.removeEnemy(enemyEntities.get(e));
 				}
-				// if(level.getEntitiesIndex(this, 10).length>=1){
-				// level.enemyEntities.remove(level.getEntitiesIndex(this,
-				// 0)[1]);
-				// System.out.println(level.getEntitiesIndex(this, 0)[1]);
-				// }
 
-				// System.out.println(level.getEntities(this, 0).size());
 			}
 			if (level.getTile(ix, iy) == Tile.breakable) {
 				level.removeTile(ix, iy);
@@ -113,7 +116,12 @@ public class Particle extends Entity {
 		return solid;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see game.entity.Entity#render(game.graphics.Screen)
+	 */
 	public void render(Screen screen) {
-		screen.renderSprite((int) xx - 1, (int) yy , sprite);
+		screen.renderSprite((int) xx - 1, (int) yy, sprite);
 	}
 }

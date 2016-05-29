@@ -5,11 +5,16 @@ import java.util.Random;
 import game.entity.mob.Chaser;
 import game.entity.mob.Mob;
 
+/**
+ * Clase que contiene los métodos para crear la Ventana del juego y renderizar los elementos
+ * 
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
+ *
+ */
 public class Screen {
 	public int width, height;
 	public int[] pixels;
 	public final int MAP_SIZE = 8;
-	public final int MAP_SIZE_MASK = MAP_SIZE - 1;
 
 	public int xOffset, yOffset;
 
@@ -17,6 +22,12 @@ public class Screen {
 
 	private Random random = new Random();
 
+	/**
+	 * Constructor de una Ventana con el tamaño indicado en la cual se renderizará el juego
+	 * 
+	 * @param width anchura de la Screen
+	 * @param height altura de la Screen
+	 */
 	public Screen(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -28,46 +39,45 @@ public class Screen {
 		}
 	}
 
+	/**
+	 * Método que borra el array de pixeles para su posterior actualización
+	 */
 	public void clear() {
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
 		}
 	}
-//	public void renderSheet(int xp, int yp, SpriteSheet sheet, boolean fixed) {
-//		// ponemos un sprite en la posición que queramos
-//		if (fixed) {
-//			xp -= xOffset;
-//			yp -= yOffset;
-//		}
-//		for (int y = 0; y < sheet.HEIGHT; y++) {
-//			int ya = y + yp;
-//			for (int x = 0; x < sheet.WIDTH; x++) {
-//				int xa = x + xp;
-//				if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;				
-//				pixels[xa + ya * width] = sheet.pixels[x + y * sheet.WIDTH];
-//			}
-//		}
-//	}
 
-	public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
-		// ponemos un sprite en la posición que queramos
-		if (fixed) {
-			xp -= xOffset;
-			yp -= yOffset;
-		}
+	/**
+	 * Método para renderizar los Sprite en la posición deseada
+	 * 
+	 * @param xp posición del eje horizontal donde empezar a renderizar
+	 * @param yp posición del eje vertical donde empezar a renderizar
+	 * @param sprite Sprite que contiene el tamaño y los pixeles a renderizar
+	 */
+	public void renderSprite(int xp, int yp, Sprite sprite) {
+		xp -= xOffset;
+		yp -= yOffset;
+
 		for (int y = 0; y < sprite.getHeigth(); y++) {
 			int ya = y + yp;
 			for (int x = 0; x < sprite.getWidth(); x++) {
 				int xa = x + xp;
-				if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+				if (xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
 				int color = sprite.pixels[x + y * sprite.SIZE];
 				if (color != 0xFFFF00FF) pixels[xa + ya * width] = sprite.pixels[x + y * sprite.getWidth()];
 
-				
 			}
 		}
 	}
 
+	/**
+	 * Método para renderizar las Tiles del Mapa
+	 * 
+	 * @param xp posición del eje horizontal donde empezar a renderizar
+	 * @param yp posición del eje vertical donde empezar a renderizar
+	 * @param sprite Que contiene el tamaño y los pixeles a renderizar
+	 */
 	public void renderTile(int xp, int yp, Sprite sprite) {
 		xp -= xOffset;
 		yp -= yOffset;
@@ -83,6 +93,13 @@ public class Screen {
 		}
 	}
 
+	/**
+	 * Método que renderiza a Chaser animados
+	 * 
+	 * @param xp posición del eje horizontal donde empezar a renderizar
+	 * @param yp posición del eje vertical donde empezar a renderizar
+	 * @param mob Objeto a renderizar que contiene el sprite
+	 */
 	public void renderMob(int xp, int yp, Mob mob) {
 		xp -= xOffset;
 		yp -= yOffset;
@@ -95,12 +112,20 @@ public class Screen {
 				if (xa < -32 || xa >= width || ya < 0 || ya >= height) break;
 				if (xa < 0) xa = 0;
 				int color = mob.getSprite().pixels[xs + ys * 32];
-				if((mob instanceof Chaser) && color == 0xFFED1C24) color = 0xFF0AEA07;
+				if ((mob instanceof Chaser) && color == 0xFFED1C24) color = 0xFF0AEA07;
 				if (color != 0xFFFF00FF) pixels[xa + ya * width] = color;
 			}
 		}
 	}
-	
+
+	/**
+	 * Método que renderiza a los Player y a los Dummy animados
+	 * 
+	 * @param xp posición del eje horizontal donde empezar a renderizar
+	 * @param yp posición del eje vertical donde empezar a renderizar
+	 * @param sprite sprite a renderizar
+	 * @param flip control para saber si ha de invertirse el Sprite horizontalmente
+	 */
 	public void renderMob(int xp, int yp, Sprite sprite, int flip) {
 		xp -= xOffset;
 		yp -= yOffset;
@@ -120,6 +145,12 @@ public class Screen {
 		}
 	}
 
+	/**
+	 * Asigna los límites de la pantalla a renderizar
+	 * 
+	 * @param xOffset trozo horizontal a renderizar
+	 * @param yOffset trozo vertical a renderizar
+	 */
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;

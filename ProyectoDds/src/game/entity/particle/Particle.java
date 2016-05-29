@@ -8,6 +8,10 @@ import game.graphics.Screen;
 import game.graphics.Sprite;
 import game.level.tile.Tile;
 
+/**
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
+ *
+ */
 public class Particle extends Entity {
 
 	private Sprite sprite;
@@ -110,6 +114,6 @@ public class Particle extends Entity {
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite((int) xx - 1, (int) yy , sprite, true);
+		screen.renderSprite((int) xx - 1, (int) yy , sprite);
 	}
 }

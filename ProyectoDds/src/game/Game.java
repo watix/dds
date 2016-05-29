@@ -161,9 +161,9 @@ public class Game extends Canvas implements Runnable {
 			player.setXY(8, 8);
 
 		}
-		if (level.players.size() == 0) {
-			stop();
-		}
+		// if (level.players.size() == 0) {
+		// stop();
+		// }
 	}//// Fin del método update
 
 	/**
@@ -177,13 +177,11 @@ public class Game extends Canvas implements Runnable {
 		}
 		// limpia la pantalla el array pixels con la info a renderizar
 		screen.clear();
-		// hace que el player esté siempre en el centro de la pantalla con los
-		// offset
+		// los Scroll indican el inicio la zona a renderizar en la pantalla de juego
 		double xScroll = player.getX() - screen.width / 2;
 		double yScroll = player.getY() - screen.height / 2;
 
 		level.render((int) xScroll, (int) yScroll, screen);
-		// screen.renderSheet(40, 40, SpriteSheet.player_down, false); muestra
 		// el sprite de la animacion
 
 		for (int i = 0; i < pixels.length; i++) {
@@ -213,8 +211,7 @@ public class Game extends Canvas implements Runnable {
 	/**
 	 * Método principal que configura la pantalla principal *
 	 * 
-	 * @param args
-	 *            parámetros estándar
+	 * @param args parámetros estándar
 	 */
 	public static void main(String[] args) {
 

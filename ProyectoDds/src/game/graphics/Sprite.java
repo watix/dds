@@ -1,5 +1,10 @@
 package game.graphics;
 
+/**
+ * Clase que contiene los constructores de Sprites
+ * @author  Joan Batiste Canet Collado y Jordi Vicedo
+ *
+ */
 public class Sprite {
 
 	public final int SIZE;
@@ -14,36 +19,37 @@ public class Sprite {
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 	public static Sprite water = new Sprite(16, 5, 0, SpriteSheet.tiles);
 	public static Sprite breakable = new Sprite(16, 3, 0, SpriteSheet.tiles);
-	
-	public static Sprite projectile = new Sprite(16, 0, 1, SpriteSheet.tiles);
-	public static Sprite bomba = new Sprite(16, 1, 1, SpriteSheet.tiles);
 
-	public static Sprite dummy_fordward = new Sprite(16, 0, 5, SpriteSheet.tiles);
+	public static Sprite projectile = new Sprite(16, 0, 1, SpriteSheet.tiles);
+	public static Sprite bomb = new Sprite(16, 1, 1, SpriteSheet.tiles);
+
 	public static Sprite dummy = new Sprite(16, 0, 0, SpriteSheet.dummy_down);
 
-
 	public static Sprite player_fordward = new Sprite(32, 0, 5, SpriteSheet.tiles);
-//	public static Sprite player_backward = new Sprite(32, 2, 5, SpriteSheet.tiles);
-//	//public static Sprite player_left = new Sprite(32, 3, 5,  SpriteSheet.tiles);
-//	public static Sprite player_right = new Sprite(32, 1, 5, SpriteSheet.tiles);
 
-//	public static Sprite player_mov_f1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
-//	public static Sprite player_mov_f2 = new Sprite(32, 0, 7, SpriteSheet.tiles);
-//	public static Sprite player_mov_r1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
-//	public static Sprite player_mov_r2 = new Sprite(32, 1, 7, SpriteSheet.tiles);
-//	public static Sprite player_mov_b1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
-//	public static Sprite player_mov_b2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
-	
 	public static Sprite particle_normal = new Sprite(3, 0xFFAA00AA);
 
-	protected Sprite(SpriteSheet sheet, int width, int height){
-		
-		SIZE= (width==height) ? width :-1;
+	/**
+	 * Constructor que crea el Sprite a renderizar del tamaño dado para la creación de Sprites animados
+	 * @param sheet
+	 * @param width
+	 * @param height
+	 */
+	protected Sprite(SpriteSheet sheet, int width, int height) {
+
+		SIZE = (width == height) ? width : -1;
 		this.width = width;
-		this.height=height;
-		this.sheet=sheet;
+		this.height = height;
+		this.sheet = sheet;
 	}
-	
+
+	/**
+	 * Constructor que crea el Sprite a renderizar del tamaño y en la posición del SpriteSheet dado
+	 * @param size tamaño del Sprite en pixeles
+	 * @param x posición en el eje horizontal en la que se encuentra el Sprite en el SpriteSheet
+	 * @param y posición en el eje vertical en la que se encuentra el Sprite en el SpriteSheet
+	 * @param sheet SriteSheet que contiene los sprites a renderizar
+	 */
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 
 		SIZE = size;
@@ -56,14 +62,12 @@ public class Sprite {
 		load();
 	}
 
-	public Sprite(int width, int height, int color) {
-		SIZE = -1;
-		this.height = height;
-		this.width = width;
-		pixels = new int[height* width];
-		setColor(color);
-	}
 
+	/**
+	 * Constructor que crea un Sprite de color uniforme de un tamaño dado.
+	 * @param size tamaño del Sprite a crear.
+	 * @param color Color del Sprite a crear.
+	 */
 	public Sprite(int size, int color) {
 
 		SIZE = size;
@@ -74,13 +78,23 @@ public class Sprite {
 
 	}
 
+	/**
+	 * Constructor que crea un Sprite a partir de un array de pixeles con la anchura y altura dada
+	 * @param pixels array de pixeles ya coloreados
+	 * @param width anchura del sprite
+	 * @param height altura del sprite
+	 */
 	public Sprite(int[] pixels, int width, int height) {
-		SIZE= (width==height) ? width :-1;
-		this.width=width;
-		this.height=height;
-		this.pixels=pixels;
+		SIZE = (width == height) ? width : -1;
+		this.width = width;
+		this.height = height;
+		this.pixels = pixels;
 	}
 
+	/**
+	 * Método que rellena un Sprite de un color dado
+	 * @param color color con el que rellenar el Sprite
+	 */
 	private void setColor(int color) {
 		for (int i = 0; i < width * height; i++) {
 			pixels[i] = color;
@@ -88,14 +102,23 @@ public class Sprite {
 
 	}
 
+	/**
+	 * @return La anchura del Sprite
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * @return La altura del Sprite
+	 */
 	public int getHeigth() {
 		return height;
 	}
 
+	/**
+	 * Carga en el array de pixeles del sprite los gráficos del SpriteSheet para su posterios renderización
+	 */
 	private void load() {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {

@@ -112,7 +112,7 @@ public class Level {
 		this.screen = screen;
 		screen.setOffset(xScroll, yScroll);
 		int x0 = xScroll >> 4;// (xScroll/16) primer chunk
-		int x1 = (xScroll + screen.width + 16) >> 4;// ultimo chunk
+		int x1 = (xScroll + screen.width + 16) >> 4;// último chunk
 		int y0 = yScroll >> 4;// (yScroll/16)
 		int y1 = (yScroll + screen.height + 16) >> 4;
 		for (int y = y0; y < y1; y++) {

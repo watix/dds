@@ -27,7 +27,7 @@ public class WizzardProjectile extends Projectile {
 		super(x, y);
 		this.player= player;
 		range = 100;
-		sprite = Sprite.bomba;
+		sprite = Sprite.bomb;
 
 	}
 

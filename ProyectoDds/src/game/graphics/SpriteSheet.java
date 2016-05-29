@@ -5,6 +5,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
+ * 
+ *         Clase para la construcción de SpriteSheets que contienen los sprites a renderizar
+ *
+ */
 public class SpriteSheet {
 
 	private String path;
@@ -16,32 +22,40 @@ public class SpriteSheet {
 
 	public Sprite[] sprites;
 
+	// Tile Sprites
 	public static SpriteSheet tiles = new SpriteSheet("/textures/sprites/sprites.png", 256);
-	
-	//player sprites
+
+	// player sprites
 	public static SpriteSheet player = new SpriteSheet("/textures/sprites/Player.png", 128, 96);
-	public static SpriteSheet player_down = new SpriteSheet(player,2,0,1,3,32);//animacion hacia abajo
-	public static SpriteSheet player_up = new SpriteSheet(player,0,0,1,3,32);//animacion hacia arriba
-	public static SpriteSheet player_left = new SpriteSheet(player,3,0,1,3,32);//animacion hacia izda
-	public static SpriteSheet player_right = new SpriteSheet(player,1,0,1,3,32);//animacion hacia dcha
-	
-	//dummy sprites
+	public static SpriteSheet player_down = new SpriteSheet(player, 2, 0, 1, 3, 32);// animacion hacia abajo
+	public static SpriteSheet player_up = new SpriteSheet(player, 0, 0, 1, 3, 32);// animacion hacia arriba
+	public static SpriteSheet player_left = new SpriteSheet(player, 3, 0, 1, 3, 32);// animacion hacia izda
+	public static SpriteSheet player_right = new SpriteSheet(player, 1, 0, 1, 3, 32);// animacion hacia dcha
+
+	// dummy sprites
 	public static SpriteSheet dummy = new SpriteSheet("/textures/sprites/Dummy.png", 128, 96);
-	public static SpriteSheet dummy_down = new SpriteSheet(dummy,2,0,1,3,32);//animacion hacia abajo
-	public static SpriteSheet dummy_up = new SpriteSheet(dummy,0,0,1,3,32);//animacion hacia arriba
-	public static SpriteSheet dummy_left = new SpriteSheet(dummy,3,0,1,3,32);//animacion hacia izda
-	public static SpriteSheet dummy_right = new SpriteSheet(dummy,1,0,1,3,32);//animacion hacia dcha	
+	public static SpriteSheet dummy_down = new SpriteSheet(dummy, 2, 0, 1, 3, 32);// animacion hacia abajo
+	public static SpriteSheet dummy_up = new SpriteSheet(dummy, 0, 0, 1, 3, 32);// animacion hacia arriba
+	public static SpriteSheet dummy_left = new SpriteSheet(dummy, 3, 0, 1, 3, 32);// animacion hacia izda
+	public static SpriteSheet dummy_right = new SpriteSheet(dummy, 1, 0, 1, 3, 32);// animacion hacia dcha
 
-
+	/**
+	 * Constructor para los Sprites animados
+	 * 
+	 * @param sheet SpriteSheet que contiene los Sprites de la animación
+	 * @param x posición horizontal donde empieza el sprite
+	 * @param y posición vertical donde empieza el sprite
+	 * @param width anchura del sprite
+	 * @param height altura del sprite
+	 * @param spriteSize tamaño de la unidad que se va a animar
+	 */
 	public SpriteSheet(SpriteSheet sheet, int x, int y, int width, int height, int spriteSize) {
 		int xx = x * spriteSize;
 		int yy = y * spriteSize;
 		int w = width * spriteSize;
 		int h = height * spriteSize;
-		if (width == height)
-			SIZE = width;
-		else
-			SIZE = -1;
+		if (width == height) SIZE = width;
+		else SIZE = -1;
 		WIDTH = w;
 		HEIGHT = h;
 		pixels = new int[w * h];
@@ -60,7 +74,7 @@ public class SpriteSheet {
 				for (int y0 = 0; y0 < spriteSize; y0++) {
 					for (int x0 = 0; x0 < spriteSize; x0++) {
 						spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize)
-								+ (y0 + ya * spriteSize )* WIDTH];
+								+ (y0 + ya * spriteSize) * WIDTH];
 
 					}
 				}
@@ -70,6 +84,14 @@ public class SpriteSheet {
 		}
 	}
 
+	/**
+	 * Constructor de SpriteSheet a partir de una ruta dada y un tamaño definido por ancho y alto para los
+	 * sprites animados
+	 * 
+	 * @param path ruta del archivo de imagen que contiene el mapa de sprites del juego
+	 * @param width ancho de la SpriteSheet a construir
+	 * @param height alto de la SpriteSheet a construir
+	 */
 	public SpriteSheet(String path, int width, int height) {
 		this.path = path;
 		this.SIZE = -1;
@@ -79,6 +101,12 @@ public class SpriteSheet {
 		load();
 	}
 
+	/**
+	 * Constructor de SpriteSheet a partir de una ruta dada y un tamaño
+	 * 
+	 * @param path ruta del archivo de imagen que contiene el mapa de sprites del juego
+	 * @param size tamaño de la SpriteSheet a construir
+	 */
 	public SpriteSheet(String path, int size) {
 		this.path = path;
 		this.SIZE = size;
@@ -88,10 +116,16 @@ public class SpriteSheet {
 		load();
 	}
 
+	/**
+	 * @return el array de sprites a renderizar
+	 */
 	public Sprite[] getSprites() {
 		return sprites;
 	}
 
+	/**
+	 * Método para cargar en el array de pixeles una imagen dada
+	 */
 	private void load() {
 		try {
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));

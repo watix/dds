@@ -6,9 +6,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
+ * Clase para la construcción de SpriteSheets que contienen los sprites a renderizar
+ * 
  * @author Joan Batiste Canet Collado y Jordi Vicedo
  * 
- *         Clase para la construcción de SpriteSheets que contienen los sprites a renderizar
  *
  */
 public class SpriteSheet {

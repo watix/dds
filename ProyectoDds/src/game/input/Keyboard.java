@@ -4,9 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
+ * Clase para capturar los eventos del teclado.
+ * 
  * @author Joan Batiste Canet Collado y Jordi Vicedo
  * 
- *         Clase para capturar los eventos del teclado.
  */
 public class Keyboard implements KeyListener {
 

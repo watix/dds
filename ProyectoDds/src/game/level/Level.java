@@ -18,9 +18,10 @@ import game.graphics.Screen;
 import game.level.tile.Tile;
 
 /**
+ * Clase Level la encargada de inicializar y de almacenar los elementos del nivel.
+ * 
  * @author Joan Batiste Canet Collado Jordi Vicedo
  * 
- *         Clase Level la encargada de inicializar y de almacenar los elementos del nivel.
  */
 public class Level {
 

@@ -5,9 +5,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
+ * Clase para capturar los eventos del ratón.
+ * 
  * @author Joan Batiste Canet Collado y Jordi Vicedo
  * 
- *         Clase para capturar los eventos del ratón.
  */
 public class Mouse implements MouseListener, MouseMotionListener {
 

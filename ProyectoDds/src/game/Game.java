@@ -20,9 +20,10 @@ import game.level.Level;
 import game.level.TileCoordinate;
 
 /**
+ * Clase principal en la que se inicializan los elementos necesarios para el correcto funcionamiento
+ * 
  * @author Joan Batiste Canet Collado y Jordi Vicedo
  * 
- *         Clase principal en la que se inicializan los elementos necesarios para el correcto funcionamiento
  *
  */
 public class Game extends Canvas implements Runnable {

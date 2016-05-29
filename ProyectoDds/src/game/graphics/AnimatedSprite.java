@@ -1,9 +1,10 @@
 package game.graphics;
 
 /**
+ * Clase para la creación, animación y actualización de los sprites animados
+ * 
  * @author Joan Batiste Canet Collado y Jordi Vicedo
  *
- *         Clase para la creación, animación y actualización de los sprites animados
  */
 public class AnimatedSprite extends Sprite {
 

@@ -2,7 +2,8 @@ package game.graphics;
 
 /**
  * Clase que contiene los constructores de Sprites
- * @author  Joan Batiste Canet Collado y Jordi Vicedo
+ * 
+ * @author Joan Batiste Canet Collado y Jordi Vicedo
  *
  */
 public class Sprite {
@@ -31,6 +32,7 @@ public class Sprite {
 
 	/**
 	 * Constructor que crea el Sprite a renderizar del tamaño dado para la creación de Sprites animados
+	 * 
 	 * @param sheet
 	 * @param width
 	 * @param height
@@ -45,6 +47,7 @@ public class Sprite {
 
 	/**
 	 * Constructor que crea el Sprite a renderizar del tamaño y en la posición del SpriteSheet dado
+	 * 
 	 * @param size tamaño del Sprite en pixeles
 	 * @param x posición en el eje horizontal en la que se encuentra el Sprite en el SpriteSheet
 	 * @param y posición en el eje vertical en la que se encuentra el Sprite en el SpriteSheet
@@ -62,9 +65,9 @@ public class Sprite {
 		load();
 	}
 
-
 	/**
 	 * Constructor que crea un Sprite de color uniforme de un tamaño dado.
+	 * 
 	 * @param size tamaño del Sprite a crear.
 	 * @param color Color del Sprite a crear.
 	 */
@@ -80,6 +83,7 @@ public class Sprite {
 
 	/**
 	 * Constructor que crea un Sprite a partir de un array de pixeles con la anchura y altura dada
+	 * 
 	 * @param pixels array de pixeles ya coloreados
 	 * @param width anchura del sprite
 	 * @param height altura del sprite
@@ -93,6 +97,7 @@ public class Sprite {
 
 	/**
 	 * Método que rellena un Sprite de un color dado
+	 * 
 	 * @param color color con el que rellenar el Sprite
 	 */
 	private void setColor(int color) {

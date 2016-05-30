@@ -28,7 +28,7 @@ public class WizzardProjectile extends Projectile {
 	public WizzardProjectile(double x, double y, double dir, Player player) {
 		super(x, y, dir);
 		this.player = player;
-		range = random.nextInt(100) + 50;
+		range = 120;
 		speed = 2;
 		sprite = Sprite.projectile;
 
@@ -60,12 +60,12 @@ public class WizzardProjectile extends Projectile {
 		time++;
 		if (time >= 7400) time = 0;
 		if (time > range) {
-			level.add(new ParticleSpawner((int) x, (int) y, 50, 10, level));
+			level.add(new ParticleSpawner((int) x, (int) y, 50, 16, level));
 			remove();
 		}
 		if (player.estado instanceof EstadoSuper) {
 			if (level.tileCollition((int) (x + nx), (int) (y + ny), 16, 5, 4)) {
-				level.add(new ParticleSpawner((int) x, (int) y, 50, 5, level));
+				level.add(new ParticleSpawner((int) x, (int) y, 50, 16, level));
 				remove();
 			}
 			move();

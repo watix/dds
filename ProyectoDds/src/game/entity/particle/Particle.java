@@ -41,7 +41,7 @@ public class Particle extends Entity {
 		this.yy = y;
 		this.dir = d;
 
-		this.life = life + (random.nextInt(20) - 10);
+		this.life = life + (random.nextInt(20) - 5);
 		sprite = Sprite.particle_normal;
 
 		this.xa = random.nextGaussian();

@@ -22,8 +22,11 @@ public class ParticleSpawner extends Spawner {
 	 */
 	public ParticleSpawner(int x, int y, int life, int amount, Level level) {
 		super(x, y, amount, level);
+		int dir= 0;
 		for (int i = 0; i < amount; i++) {
-			level.add(new Particle(x, y + 7, life, i % 5));
+			if (dir > 3)dir =0;			
+			level.add(new Particle(x, y + 7, life, dir));
+			dir++;
 		}
 
 	}

@@ -34,7 +34,7 @@ public class Game extends Canvas implements Runnable {
 	private static int width = 300;
 	private static int height = 168; // width / 16 * 9;
 	private static int scale = 3;
-	public static String title = "AWesoME LEVEL ";
+	public static String title = "BomberMan LEVEL ";
 	private static int stage = 1;
 	private String path = "/textures/levels/map" + stage + ".png";
 
